@@ -41,13 +41,21 @@ function initAddToCartButtons() {
 
     forms.forEach(form => {
         form.addEventListener('submit', (e) => {
+            if (typeof addToCart !== 'function') {
+                return;
+            }
+
             e.preventDefault();
 
-            const setId = form.querySelector('input[name="set_id"]').value;
-            const setName = form.querySelector('h3').textContent;
+            const setIdInput = form.querySelector('input[name="set_id"], input[name="preorder_set_id"]');
+            if (!setIdInput) {
+                return;
+            }
 
-            // 調用購物車函數
-            addToCart(parseInt(setId), 1);
+            const qtyInput = form.querySelector('input[name="quantity"]');
+            const quantity = qtyInput ? parseInt(qtyInput.value || '1') : 1;
+
+            addToCart(parseInt(setIdInput.value), quantity);
         });
     });
 }
