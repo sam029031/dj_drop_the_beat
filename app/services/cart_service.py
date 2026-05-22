@@ -2,6 +2,7 @@
 from sqlalchemy.orm import Session
 from app.models.cart import Cart, CartItem
 from app.models.preorder_set import PreorderSet
+import json
 
 class CartService:
     @staticmethod
@@ -86,7 +87,7 @@ class CartService:
                 "preorder_set_id": preorder_set.id,
                 "name": preorder_set.name,
                 "description": preorder_set.description,
-                "included_items": preorder_set.included_items or [],
+                "included_items": CartService._normalize_included_items(preorder_set.included_items),
                 "quantity": cart_item.quantity,
                 "unit_price": unit_price,
                 "subtotal": subtotal,
@@ -129,3 +130,22 @@ class CartService:
         cart.total_price = 0
         cart.item_count = 0
         db.commit()
+
+    @staticmethod
+    def _normalize_included_items(value):
+        if value is None:
+            return []
+
+        if isinstance(value, list):
+            return value
+
+        if isinstance(value, str):
+            try:
+                parsed = json.loads(value)
+                if isinstance(parsed, str):
+                    parsed = json.loads(parsed)
+                return parsed if isinstance(parsed, list) else []
+            except Exception:
+                return []
+
+        return []
