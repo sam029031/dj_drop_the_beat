@@ -32,7 +32,7 @@ def setup_middleware(app: FastAPI):
     # 可信主機中間件
     app.add_middleware(
         TrustedHostMiddleware,
-        allowed_hosts=["localhost", "127.0.0.1", "*.localhost"]
+        allowed_hosts=settings.TRUSTED_HOSTS
     )
     
     logger.info("中間件配置完成")
