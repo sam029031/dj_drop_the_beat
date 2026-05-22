@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}DJ 器材預購與入門學習平台 - 首頁{% endblock %}
+
+{% block content %}
+<!-- 首頁 Hero 區 -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>歡迎來到 DJ 器材預購平台</h1>
+        <p>專業 DJ 器材、課程與比賽資訊一站式服務</p>
+        <div class="hero-buttons">
+            <a href="/category?instrument=ddj" class="btn btn-primary btn-large">立即預購</a>
+            <a href="/course" class="btn btn-secondary btn-large">查看課程</a>
+        </div>
+    </div>
+</section>
+
+<!-- 預購 SET 推薦區 -->
+{% if preorder_sets %}
+<section class="preorder-showcase">
+    <div class="container">
+        <h2 class="section-title">熱門預購組合</h2>
+        <p class="section-subtitle">選擇最適合您的 DJ 器材套組</p>
+        
+        <div class="preorder-sets-grid">
+            {% for set in preorder_sets %}
+            <div class="preorder-set-card">
+                <h3>{{ set.name }}</h3>
+                <p class="set-description">{{ set.description }}</p>
+                <div class="set-items">
+                    {% for item in set.items %}
+                    <div>• {% if item.instrument_type == 'ddj' %}DJ盤{% elif item.instrument_type == 'audio' %}音響{% elif item.instrument_type == 'wire' %}線材{% elif item.instrument_type == 'music' %}音樂{% elif item.instrument_type == 'course' %}課程{% endif %}</div>
+                    {% endfor %}
+                </div>
+                <div class="set-price">NT${{ "%.0f"|format(set.price) }}</div>
+                <form method="POST" action="/cart/add" class="add-to-cart-form">
+                    <input type="hidden" name="set_id" value="{{ set.id }}" />
+                    <button type="submit" class="btn btn-primary">加入購物車</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 最新商品展示 -->
+{% if latest_products %}
+<section class="products-showcase">
+    <div class="container">
+        <h2 class="section-title">精選器材</h2>
+        <p class="section-subtitle">精心挑選的優質 DJ 器材</p>
+        
+        <div class="products-grid">
+            {% for product, inst_type in latest_products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ product.image or '/static/images/placeholder.jpg' }}" alt="{{ product.name }}" />
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    {% if product.brand %}<p class="product-brand">{{ product.brand }}</p>{% endif %}
+                    <p class="product-price">NT${{ "%.0f"|format(product.price) }}</p>
+                    {% if product.description %}<p class="product-desc">{{ product.description[:60] }}...</p>{% endif %}
+                    <a href="/detail?instrument={{ inst_type }}&id={{ product.id }}" class="btn btn-secondary">查看詳情</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="section-footer">
+            <a href="/category?instrument=ddj" class="btn btn-primary">瀏覽所有器材</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 平台介紹 -->
+<section class="platform-info">
+    <div class="container">
+        <h2 class="section-title">平台介紹</h2>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-icon">🎛️</div>
+                <h3>專業器材</h3>
+                <p>精選全球頂級 DJ 器材品牌，提供預購優惠組合，滿足您的需求。</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">📚</div>
+                <h3>專業課程</h3>
+                <p>從初級到進階，由業界講師開設課程，快速提升 DJ 技能。</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">🎤</div>
+                <h3>競技舞台</h3>
+                <p>定期舉辦 DJ 比賽，提供展示才能和交流互動的平台。</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">💳</div>
+                <h3>簡單付款</h3>
+                <p>支持線下銀行轉帳，安全可靠，確認付款後快速出貨。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 最新消息 -->
+<section class="news-section">
+    <div class="container">
+        <h2 class="section-title">最新消息</h2>
+        
+        <div class="news-items">
+            <div class="news-item">
+                <span class="news-date">2026-06-01</span>
+                <h4>🎉 新品預購活動開始</h4>
+                <p>最新款 Pioneer DDJ-FLX10 現在開放預購，享受優惠價格！</p>
+            </div>
+            
+            <div class="news-item">
+                <span class="news-date">2026-05-25</span>
+                <h4>📚 暑期課程報名中</h4>
+                <p>今年暑假開設進階 DJ 課程，名額有限，現已接受報名。</p>
+            </div>
+            
+            <div class="news-item">
+                <span class="news-date">2026-05-20</span>
+                <h4>🎤 2026 DJ 大賽公告</h4>
+                <p>歡迎各位 DJ 高手報名參加今年的大賽，獎金池高達 50,000 元！</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js"></script>
+{% endblock %}

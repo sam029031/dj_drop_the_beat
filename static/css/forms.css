@@ -1,0 +1,285 @@
+/* 
+ * forms.css - 表單元素樣式
+ * 輸入框、標籤、驗證狀態
+ */
+
+/* ============ 表單群組 ============ */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-large {
+    max-width: 600px;
+}
+
+/* ============ 標籤 ============ */
+label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-light);
+    font-size: var(--font-size-sm);
+}
+
+/* ============ 輸入框 ============ */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-md);
+    background-color: var(--color-dark-tertiary);
+    color: var(--color-light);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+/* 焦點狀態 */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    background-color: var(--color-dark-secondary);
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+/* 禁用狀態 */
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background-color: var(--color-dark-tertiary);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============ 文字區域 ============ */
+textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: var(--font-family-base);
+}
+
+/* ============ 選擇框 ============ */
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f5ff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-md) center;
+    padding-right: var(--spacing-2xl);
+}
+
+select option {
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+}
+
+/* ============ 核取方塊 ============ */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: var(--spacing-sm);
+    cursor: pointer;
+}
+
+.checkbox-group,
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.checkbox-group label,
+.radio-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.checkbox-group input,
+.radio-group input {
+    margin-right: var(--spacing-md);
+}
+
+/* ============ 驗證狀態 ============ */
+.form-group.is-invalid input,
+.form-group.is-invalid textarea,
+.form-group.is-invalid select {
+    border-color: var(--color-error);
+}
+
+.form-group.is-invalid input:focus,
+.form-group.is-invalid textarea:focus,
+.form-group.is-invalid select:focus {
+    box-shadow: 0 0 10px rgba(255, 0, 110, 0.2);
+}
+
+.form-group.is-valid input,
+.form-group.is-valid textarea,
+.form-group.is-valid select {
+    border-color: var(--color-success);
+}
+
+.form-group.is-valid input:focus,
+.form-group.is-valid textarea:focus,
+.form-group.is-valid select:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+/* 錯誤提示 */
+.form-error {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+}
+
+.form-help {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+}
+
+/* ============ 表單群組排列 ============ */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+}
+
+/* ============ 表單操作 ============ */
+.form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    justify-content: flex-start;
+}
+
+.form-actions .btn {
+    flex: 0 1 auto;
+}
+
+.form-actions.center {
+    justify-content: center;
+}
+
+.form-actions.right {
+    justify-content: flex-end;
+}
+
+/* ============ 搜尋表單 ============ */
+.search-form {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.search-input {
+    flex: 1;
+}
+
+/* ============ 篩選面板 ============ */
+.filter-panel {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.filter-form {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.filter-form > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.filter-form label {
+    font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 768px) {
+    .filter-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============ 分頁 ============ */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-xl) 0;
+    flex-wrap: wrap;
+}
+
+.pagination-btn,
+.pagination-info {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-dark-tertiary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.pagination-btn:hover {
+    border-color: var(--color-secondary);
+    background-color: rgba(0, 245, 255, 0.1);
+    color: var(--color-secondary);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    background-color: transparent;
+    border: none;
+    padding: var(--spacing-md);
+}

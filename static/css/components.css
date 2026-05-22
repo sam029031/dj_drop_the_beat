@@ -1,0 +1,306 @@
+/* 
+ * components.css - 可複用元件樣式
+ * 按鈕、卡片、徽章、圖標盒等
+ */
+
+/* ============ 按鈕 ============ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+/* 主要按鈕 */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
+}
+
+.btn-primary:disabled {
+    background-color: var(--color-text-tertiary);
+    border-color: var(--color-text-tertiary);
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* 次要按鈕 */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-light);
+    border: 2px solid var(--color-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+.btn-secondary:active {
+    opacity: 0.8;
+}
+
+/* 危險按鈕 */
+.btn-danger {
+    background-color: var(--color-error);
+    color: var(--color-dark);
+    border: 2px solid var(--color-error);
+}
+
+.btn-danger:hover {
+    background-color: #dd0055;
+    border-color: #dd0055;
+}
+
+/* 資訊按鈕 */
+.btn-info {
+    background-color: var(--color-info);
+    color: var(--color-dark);
+    border: 2px solid var(--color-info);
+}
+
+.btn-info:hover {
+    background-color: #00d4dd;
+    border-color: #00d4dd;
+}
+
+/* 禁用按鈕 */
+.btn-disabled {
+    background-color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
+    border: 2px solid var(--color-text-tertiary);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* 按鈕尺寸 */
+.btn-sm {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+}
+
+.btn-large {
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    font-size: var(--font-size-lg);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* ============ 卡片 ============ */
+.card {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.2);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.card-body {
+    padding: var(--spacing-md) 0;
+}
+
+.card-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+/* ============ 網格卡片 ============ */
+.products-grid,
+.courses-grid,
+.preorder-sets-grid,
+.contests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .products-grid,
+    .courses-grid,
+    .preorder-sets-grid,
+    .contests-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 576px) {
+    .products-grid,
+    .courses-grid,
+    .preorder-sets-grid,
+    .contests-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 徽章 ============ */
+.badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+}
+
+.badge.active {
+    background-color: var(--color-success);
+    color: var(--color-dark);
+}
+
+.badge.inactive {
+    background-color: var(--color-text-tertiary);
+    color: var(--color-light);
+}
+
+.badge.primary {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+}
+
+.badge.success {
+    background-color: var(--color-success);
+    color: var(--color-dark);
+}
+
+.badge.error {
+    background-color: var(--color-error);
+    color: var(--color-dark);
+}
+
+.badge.warning {
+    background-color: var(--color-warning);
+    color: var(--color-dark);
+}
+
+.badge.info {
+    background-color: var(--color-info);
+    color: var(--color-dark);
+}
+
+/* 難度徽章 */
+.difficulty-badge {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.difficulty-beginner {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+
+.difficulty-intermediate {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning);
+}
+
+.difficulty-advanced {
+    background-color: rgba(255, 0, 110, 0.2);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+/* ============ 警告框 ============ */
+.alert {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid;
+    margin-bottom: var(--spacing-md);
+}
+
+.alert-success {
+    background-color: rgba(0, 255, 0, 0.1);
+    border-left-color: var(--color-success);
+    color: var(--color-success);
+}
+
+.alert-error {
+    background-color: rgba(255, 0, 110, 0.1);
+    border-left-color: var(--color-error);
+    color: var(--color-error);
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left-color: var(--color-warning);
+    color: var(--color-warning);
+}
+
+.alert-info {
+    background-color: rgba(0, 245, 255, 0.1);
+    border-left-color: var(--color-info);
+    color: var(--color-info);
+}
+
+/* ============ 分段按鈕 ============ */
+.btn-group {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.btn-group .btn {
+    border-radius: 0;
+    flex: 1;
+}
+
+.btn-group .btn:first-child {
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+}
+
+.btn-group .btn:last-child {
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+}

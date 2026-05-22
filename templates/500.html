@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}伺服器錯誤 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-container">
+            <div class="error-code">500</div>
+            <h1>伺服器發生錯誤</h1>
+            <p class="error-message">抱歉，伺服器發生錯誤，請稍後重試</p>
+            
+            <div class="error-icon">⚠️</div>
+            
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">返回首頁</a>
+                <a href="/contact" class="btn btn-secondary">聯絡我們</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}結帳 - DJ 器材預購與入門學習平台{% endblock %}
+{% block content %}
+<section class="checkout-section"><div class="container">
+    <h1 class="section-title">完成購買</h1>
+    <div class="checkout-layout">
+        <aside class="checkout-summary"><h3>訂單概要</h3><div class="summary-items">
+            {% for item in items %}<div class="summary-item"><div class="item-name">{{ item.preorder_set.name }}</div><div class="item-qty">數量：{{ item.quantity }}</div><div class="item-price">NT${{ "%.0f"|format(item.subtotal) }}</div></div>{% endfor %}
+        </div><div class="summary-total"><span>總金額：</span><span class="total-amount">NT${{ "%.0f"|format(total) }}</span></div></aside>
+        <main class="checkout-form"><h3>購買人資料</h3>{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+            <form method="POST" action="/checkout" class="form-large">
+                <div class="form-group"><label for="buyer_name">姓名 *</label><input type="text" id="buyer_name" name="buyer_name" value="{{ user.full_name or '' }}" required /></div>
+                <div class="form-group"><label for="buyer_phone">電話 *</label><input type="tel" id="buyer_phone" name="buyer_phone" value="{{ user.phone or '' }}" required /></div>
+                <div class="form-group"><label for="buyer_email">信箱 *</label><input type="email" id="buyer_email" name="buyer_email" value="{{ user.email or '' }}" required /></div>
+                <div class="form-group"><label for="buyer_address">地址 *</label><textarea id="buyer_address" name="buyer_address" required>{{ user.address or '' }}</textarea></div>
+                <div class="form-group"><label for="notes">備註</label><textarea id="notes" name="notes" rows="3"></textarea></div>
+                <div class="checkout-actions"><a href="/cart" class="btn btn-secondary">返回購物車</a><button type="submit" class="btn btn-primary">送出訂單</button></div>
+            </form>
+        </main>
+    </div>
+</div></section>
+{% endblock %}
+{% block scripts %}<script src="/static/js/checkout.js"></script>{% endblock %}

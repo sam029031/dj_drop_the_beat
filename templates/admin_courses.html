@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}課程管理 - 管理後台{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <!-- 側邊欄 -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item active">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+        
+        <!-- 主內容 -->
+        <main class="admin-main">
+            <div class="admin-header-with-btn">
+                <h1>課程管理</h1>
+                <button class="btn btn-primary" onclick="openAddCourseModal()">+ 新增課程</button>
+            </div>
+            
+            <!-- 課程列表 -->
+            {% if courses %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>課程名稱</th>
+                        <th>講師</th>
+                        <th>難度</th>
+                        <th>價格</th>
+                        <th>時數</th>
+                        <th>狀態</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course.id }}</td>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.instructor }}</td>
+                        <td>
+                            {% if course.difficulty == 'beginner' %}初級
+                            {% elif course.difficulty == 'intermediate' %}中級
+                            {% elif course.difficulty == 'advanced' %}進階
+                            {% endif %}
+                        </td>
+                        <td>NT${{ "%.0f"|format(course.price) }}</td>
+                        <td>{{ course.hours }} 小時</td>
+                        <td><span class="badge {% if course.is_active %}active{% else %}inactive{% endif %}">{% if course.is_active %}開課中{% else %}已結束{% endif %}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="editCourse({{ course.id }})">編輯</button>
+                            <button class="btn btn-sm btn-info" onclick="viewRegistrations({{ course.id }})">學員</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteCourse({{ course.id }})">刪除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">沒有找到課程</p>
+            {% endif %}
+        </main>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

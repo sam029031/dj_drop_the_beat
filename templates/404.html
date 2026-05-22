@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}頁面未找到 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <h1>頁面未找到</h1>
+            <p class="error-message">抱歉，您要尋找的頁面不存在</p>
+            
+            <div class="error-icon">🔍</div>
+            
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">返回首頁</a>
+                <a href="/category?instrument=ddj" class="btn btn-secondary">查看商品</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

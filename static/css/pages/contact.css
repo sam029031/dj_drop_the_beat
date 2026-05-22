@@ -1,0 +1,167 @@
+/* 
+ * pages/contact.css - 聯絡頁面樣式
+ */
+
+.contact-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+@media (max-width: 992px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 聯絡資訊側邊欄 ============ */
+.contact-info {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+@media (max-width: 992px) {
+    .contact-info {
+        position: static;
+    }
+}
+
+.contact-info h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.info-item {
+    margin-bottom: var(--spacing-lg);
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item .label {
+    display: block;
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.info-item p {
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+    font-size: var(--font-size-sm);
+}
+
+.info-item a {
+    color: var(--color-secondary);
+}
+
+/* ============ 聯絡表單 ============ */
+.contact-form-section {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.contact-form-section h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.contact-form .form-group {
+    margin-bottom: 0;
+}
+
+.radio-group {
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.form-actions .btn {
+    flex: 1;
+}
+
+/* ============ 常見問題 ============ */
+.faq-section {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.faq-section h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.faq-items {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.faq-item {
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    border-radius: var(--border-radius-md);
+}
+
+.faq-item h4 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.faq-item p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+}

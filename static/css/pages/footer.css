@@ -1,0 +1,152 @@
+/* 
+ * pages/footer.css - 頁尾樣式
+ */
+
+/* ============ 頁尾 ============ */
+footer {
+    background-color: var(--color-dark-secondary);
+    border-top: 2px solid var(--color-primary);
+    padding: var(--spacing-2xl) var(--spacing-md);
+    margin-top: auto;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ============ 頁尾欄位 ============ */
+.footer-column h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-lg);
+}
+
+.footer-column ul {
+    list-style: none;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-secondary);
+}
+
+.footer-column a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.footer-column a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+/* ============ 聯絡資訊 ============ */
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.contact-item {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+}
+
+.contact-icon {
+    font-size: var(--font-size-lg);
+    color: var(--color-secondary);
+    min-width: 24px;
+}
+
+.contact-text {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* ============ 社群媒體 ============ */
+.social-links {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-full);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.social-link:hover {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+}
+
+/* ============ 頁尾底部 ============ */
+.footer-bottom {
+    border-top: 1px solid var(--color-dark-tertiary);
+    padding-top: var(--spacing-lg);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+}
+
+.footer-links a {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--color-secondary);
+}
+
+.copyright {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-xs);
+}
+
+@media (max-width: 576px) {
+    footer {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+}

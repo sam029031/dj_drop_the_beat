@@ -1,0 +1,36 @@
+<!-- 篩選面板 -->
+<aside class="filter-panel">
+    <h3 class="filter-title">篩選條件</h3>
+    <form method="GET" class="filter-form" id="filter-form">
+        <!-- 種類篩選 -->
+        <fieldset class="filter-group">
+            <legend>種類</legend>
+            <label><input type="radio" name="instrument" value="ddj" {% if instrument == 'ddj' %}checked{% endif %} /> DJ盤</label>
+            <label><input type="radio" name="instrument" value="audio" {% if instrument == 'audio' %}checked{% endif %} /> 音響</label>
+            <label><input type="radio" name="instrument" value="wire" {% if instrument == 'wire' %}checked{% endif %} /> 線材</label>
+            <label><input type="radio" name="instrument" value="music" {% if instrument == 'music' %}checked{% endif %} /> 音樂</label>
+        </fieldset>
+        
+        <!-- 品牌篩選 -->
+        <fieldset class="filter-group">
+            <legend>品牌</legend>
+            <input type="text" name="brand" placeholder="輸入品牌名稱" value="{{ brand_filter or '' }}" class="filter-input" />
+        </fieldset>
+        
+        <!-- 價格篩選 -->
+        <fieldset class="filter-group">
+            <legend>售價範圍</legend>
+            <div class="price-range">
+                <input type="number" name="price_min" placeholder="最低價" value="{{ price_min or 0 }}" class="filter-input" />
+                <span>~</span>
+                <input type="number" name="price_max" placeholder="最高價" value="{{ price_max or 999999 }}" class="filter-input" />
+            </div>
+        </fieldset>
+        
+        <!-- 按鈕 -->
+        <div class="filter-buttons">
+            <button type="submit" class="btn btn-primary">套用篩選</button>
+            <button type="reset" class="btn btn-secondary">重設篩選</button>
+        </div>
+    </form>
+</aside>

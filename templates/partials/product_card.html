@@ -1,0 +1,17 @@
+<!-- 商品卡片 -->
+<div class="product-card">
+    <div class="product-image">
+        <img src="{{ product.image or '/static/images/placeholder.jpg' }}" alt="{{ product.name }}" />
+    </div>
+    <div class="product-info">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-meta">
+            {% if product.brand %}<span class="badge">{{ product.brand }}</span>{% endif %}
+        </p>
+        <p class="product-price">NT${{ "%.0f"|format(product.price) }}</p>
+        {% if product.description %}
+        <p class="product-desc">{{ product.description[:80] }}...</p>
+        {% endif %}
+        <a href="/detail?instrument={{ instrument }}&id={{ product.id }}" class="btn btn-secondary btn-sm">查看詳情</a>
+    </div>
+</div>

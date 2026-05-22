@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}會員登入 - DJ 器材預購與入門學習平台{% endblock %}
+{% block content %}
+<section class="auth-section">
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>會員登入</h1>
+            <p class="auth-subtitle">輸入帳號和密碼</p>
+
+            {% if error %}
+            <div class="alert alert-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" action="/login" class="auth-form">
+                <input type="hidden" name="next" value="{{ next or '/' }}" />
+                <div class="form-group">
+                    <label for="username">帳號</label>
+                    <input type="text" id="username" name="username" required autofocus minlength="3" />
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" name="password" required minlength="8" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登入</button>
+            </form>
+
+            <div class="auth-links">
+                <p>沒有會員？<a href="/register">前往註冊</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/auth.js"></script>
+{% endblock %}

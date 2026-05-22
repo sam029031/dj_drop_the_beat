@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}建立帳號 - DJ 器材預購與入門學習平台{% endblock %}
+{% block content %}
+<section class="auth-section">
+    <div class="auth-container">
+        <div class="auth-card auth-card-large">
+            <h1>建立新帳號</h1>
+
+            {% if error %}
+            <div class="alert alert-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" action="/register" class="auth-form">
+                <div class="form-group">
+                    <label for="username">帳號 *</label>
+                    <input type="text" id="username" name="username" required minlength="3" maxlength="50" />
+                </div>
+                <div class="form-group">
+                    <label for="email">電子郵件 *</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼 *</label>
+                    <input type="password" id="password" name="password" required minlength="8" />
+                    <small>至少 8 個字元</small>
+                </div>
+                <div class="form-group">
+                    <label for="password_confirm">確認密碼 *</label>
+                    <input type="password" id="password_confirm" name="password_confirm" required minlength="8" />
+                </div>
+                <div class="form-group">
+                    <label for="full_name">姓名</label>
+                    <input type="text" id="full_name" name="full_name" />
+                </div>
+                <div class="form-group">
+                    <label for="phone">電話</label>
+                    <input type="tel" id="phone" name="phone" />
+                </div>
+                <div class="form-group">
+                    <label for="address">地址</label>
+                    <textarea id="address" name="address"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">建立帳號</button>
+            </form>
+
+            <div class="auth-links">
+                <p>已有會員？<a href="/login">前往登入</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/auth.js"></script>
+{% endblock %}

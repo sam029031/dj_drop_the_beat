@@ -1,0 +1,289 @@
+/* 
+ * pages/course-contest.css - 課程與比賽頁面共用樣式
+ */
+
+/* ============ 課程/比賽列表卡片 ============ */
+.course-card,
+.contest-card {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+}
+
+.course-card:hover,
+.contest-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.2);
+    transform: translateY(-4px);
+}
+
+.course-header,
+.contest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.course-header h3,
+.contest-header h3 {
+    color: var(--color-light);
+    flex: 1;
+}
+
+.difficulty-badge {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+}
+
+.contest-date {
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* ============ 課程/比賽基本資訊 ============ */
+.course-info,
+.contest-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.course-info p,
+.contest-info p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+}
+
+/* ============ 課程/比賽描述 ============ */
+.course-description,
+.contest-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+}
+
+/* ============ 課程/比賽價格 ============ */
+.course-price,
+.contest-price {
+    margin: var(--spacing-md) 0;
+}
+
+.course-price .price,
+.contest-price .price {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* ============ 課程/比賽操作按鈕 ============ */
+.course-actions,
+.contest-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: auto;
+}
+
+.course-actions .btn,
+.contest-actions .btn {
+    flex: 1;
+}
+
+/* ============ 詳情頁面佈局 ============ */
+.course-detail-layout,
+.contest-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+@media (max-width: 992px) {
+    .course-detail-layout,
+    .contest-detail-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 側邊欄 ============ */
+.course-detail-sidebar,
+.contest-detail-sidebar {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+@media (max-width: 992px) {
+    .course-detail-sidebar,
+    .contest-detail-sidebar {
+        position: static;
+    }
+}
+
+.course-image,
+.contest-image {
+    background-color: var(--color-dark-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-placeholder {
+    font-size: var(--font-size-3xl);
+}
+
+.course-basics,
+.contest-basics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.basic-item {
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.basic-item .label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.basic-item .value {
+    color: var(--color-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+.course-price-large,
+.contest-price-large {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+}
+
+/* ============ 主內容 ============ */
+.course-detail-main,
+.contest-detail-main {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+}
+
+.course-detail-main h1,
+.contest-detail-main h1 {
+    color: var(--color-light);
+}
+
+.course-section,
+.contest-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.course-section h3,
+.contest-section h3 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.course-section p,
+.contest-section p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.syllabus {
+    list-style: none;
+    margin: 0;
+}
+
+.syllabus li {
+    padding: var(--spacing-sm) 0;
+    padding-left: var(--spacing-md);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-dark-secondary);
+}
+
+.syllabus li:before {
+    content: '▸ ';
+    color: var(--color-secondary);
+}
+
+/* ============ 報名表單區 ============ */
+.course-registration,
+.contest-registration {
+    background-color: var(--color-dark-tertiary);
+    border: 2px solid var(--color-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.registration-form .form-group {
+    margin-bottom: 0;
+}
+
+.registration-form input,
+.registration-form textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+}
+
+.registration-form input:focus,
+.registration-form textarea:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+}
+
+.registration-form .btn-large {
+    width: 100%;
+}
+
+/* ============ 報名截止警告 ============ */
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left-color: var(--color-warning);
+    color: var(--color-warning);
+}
+
+.deadline-passed {
+    color: var(--color-error);
+}

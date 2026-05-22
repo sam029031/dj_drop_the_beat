@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}商品分類 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="category-section">
+    <div class="container">
+        <h1 class="section-title">器材分類</h1>
+        <nav class="breadcrumb">
+            <a href="/">首頁</a> / <span>分類</span>
+        </nav>
+        
+        <div class="category-layout">
+            <!-- 篩選面板 -->
+            {% include "partials/filter_panel.html" %}
+            
+            <!-- 主內容 -->
+            <div class="category-main">
+                <!-- 篩選摘要 -->
+                <div class="filter-summary">
+                    <p>共 <strong>{{ total }}</strong> 項商品</p>
+                    {% if brand_filter %}<span class="filter-tag">品牌: {{ brand_filter }} <a href="/category?instrument={{ instrument }}">✕</a></span>{% endif %}
+                    {% if price_min > 0 or price_max < 999999 %}<span class="filter-tag">價格: {{ price_min }} - {{ price_max }} <a href="/category?instrument={{ instrument }}">✕</a></span>{% endif %}
+                </div>
+                
+                <!-- 商品列表 -->
+                {% if products %}
+                <div class="products-grid">
+                    {% for product in products %}
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{{ product.image or '/static/images/placeholder.jpg' }}" alt="{{ product.name }}" />
+                        </div>
+                        <div class="product-info">
+                            <h3>{{ product.name }}</h3>
+                            {% if product.brand %}<p class="product-brand">{{ product.brand }}</p>{% endif %}
+                            <p class="product-price">NT${{ "%.0f"|format(product.price) }}</p>
+                            {% if product.description %}<p class="product-desc">{{ product.description[:60] }}</p>{% endif %}
+                            <a href="/detail?instrument={{ instrument }}&id={{ product.id }}" class="btn btn-secondary">查看詳情</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- 分頁 -->
+                {% if total_pages > 1 %}
+                <nav class="pagination">
+                    {% if page > 1 %}
+                        <a href="/category?instrument={{ instrument }}&page=1" class="pagination-btn">« 第一頁</a>
+                        <a href="/category?instrument={{ instrument }}&page={{ page - 1 }}" class="pagination-btn">‹ 上一頁</a>
+                    {% endif %}
+                    <span class="pagination-info">第 {{ page }} / {{ total_pages }} 頁</span>
+                    {% if page < total_pages %}
+                        <a href="/category?instrument={{ instrument }}&page={{ page + 1 }}" class="pagination-btn">下一頁 ›</a>
+                        <a href="/category?instrument={{ instrument }}&page={{ total_pages }}" class="pagination-btn">最後頁 »</a>
+                    {% endif %}
+                </nav>
+                {% endif %}
+                {% else %}
+                <p class="no-results">找不到符合條件的商品</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

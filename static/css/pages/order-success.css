@@ -1,0 +1,180 @@
+/* 
+ * pages/order-success.css - 訂單成功頁面樣式
+ */
+
+.order-success-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.success-container {
+    background-color: var(--color-dark-tertiary);
+    border: 2px solid var(--color-success);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-2xl);
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.2);
+}
+
+.success-icon {
+    font-size: 100px;
+    margin-bottom: var(--spacing-lg);
+}
+
+.success-container h1 {
+    color: var(--color-success);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.success-message {
+    color: var(--color-secondary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ============ 訂單資訊卡片 ============ */
+.order-info-card {
+    background-color: var(--color-dark-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    text-align: left;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-dark-tertiary);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row .label {
+    color: var(--color-text-secondary);
+}
+
+.info-row .value {
+    color: var(--color-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* ============ 訂單項目表格 ============ */
+.order-items-card {
+    background-color: var(--color-dark-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    text-align: left;
+}
+
+.order-items-card h3 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.order-table {
+    width: 100%;
+    background-color: var(--color-dark-tertiary);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg);
+}
+
+.order-table th,
+.order-table td {
+    padding: var(--spacing-md);
+    text-align: left;
+}
+
+.order-table th {
+    background-color: var(--color-dark-secondary);
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-bold);
+}
+
+.order-table td {
+    color: var(--color-text-secondary);
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-tertiary);
+    border-radius: var(--border-radius-md);
+    font-weight: var(--font-weight-bold);
+}
+
+.order-total .label {
+    color: var(--color-light);
+}
+
+.order-total .amount {
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+}
+
+/* ============ 付款資訊卡片 ============ */
+.payment-info-card {
+    background-color: var(--color-dark-secondary);
+    border: 1px solid var(--color-warning);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    text-align: left;
+}
+
+.payment-info-card h3 {
+    color: var(--color-warning);
+    margin-bottom: var(--spacing-lg);
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.payment-details p {
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+}
+
+/* ============ 成功頁面操作 ============ */
+.success-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-top: var(--spacing-xl);
+}
+
+@media (max-width: 576px) {
+    .success-container {
+        padding: var(--spacing-lg);
+    }
+    
+    .info-row {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .success-actions {
+        flex-direction: column;
+    }
+    
+    .success-actions .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,24 @@
+<!-- 分頁 -->
+{% if total_pages > 1 %}
+<nav class="pagination" aria-label="分頁導航">
+    {% if page > 1 %}
+        <a href="{{ current_url }}?page=1" class="pagination-btn">« 第一頁</a>
+        <a href="{{ current_url }}?page={{ page - 1 }}" class="pagination-btn">‹ 上一頁</a>
+    {% else %}
+        <span class="pagination-btn disabled">« 第一頁</span>
+        <span class="pagination-btn disabled">‹ 上一頁</span>
+    {% endif %}
+    
+    <div class="pagination-info">
+        第 {{ page }} / {{ total_pages }} 頁
+    </div>
+    
+    {% if page < total_pages %}
+        <a href="{{ current_url }}?page={{ page + 1 }}" class="pagination-btn">下一頁 ›</a>
+        <a href="{{ current_url }}?page={{ total_pages }}" class="pagination-btn">最後頁 »</a>
+    {% else %}
+        <span class="pagination-btn disabled">下一頁 ›</span>
+        <span class="pagination-btn disabled">最後頁 »</span>
+    {% endif %}
+</nav>
+{% endif %}

@@ -1,0 +1,164 @@
+/* 
+ * pages/cart.css - 購物車頁面樣式
+ */
+
+.cart-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+    min-height: 80vh;
+}
+
+.cart-content {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 992px) {
+    .cart-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 購物車表格 ============ */
+.cart-table {
+    width: 100%;
+    background-color: var(--color-dark-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.cart-table thead {
+    background-color: var(--color-dark-secondary);
+}
+
+.cart-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-size: var(--font-size-sm);
+    color: var(--color-secondary);
+}
+
+.cart-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-dark-secondary);
+}
+
+.cart-table tr:hover {
+    background-color: rgba(255, 0, 110, 0.05);
+}
+
+.cart-table .qty-input {
+    width: 60px;
+    padding: var(--spacing-sm);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+}
+
+/* ============ 購物車摘要邊欄 ============ */
+.cart-summary {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    position: sticky;
+    top: var(--spacing-xl);
+    height: fit-content;
+}
+
+@media (max-width: 992px) {
+    .cart-summary {
+        position: static;
+        top: auto;
+    }
+}
+
+.cart-summary h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.summary-item span:last-child {
+    color: var(--color-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    border-top: 2px solid var(--color-primary);
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.cart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.cart-actions .btn {
+    width: 100%;
+}
+
+/* ============ 購物須知 ============ */
+.cart-notes {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.cart-notes h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.cart-notes ul {
+    list-style: none;
+    margin: 0;
+}
+
+.cart-notes li {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    padding-left: var(--spacing-md);
+}
+
+/* ============ 空購物車 ============ */
+.empty-cart {
+    text-align: center;
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background-color: var(--color-dark-tertiary);
+    border-radius: var(--border-radius-lg);
+    border: 2px dashed var(--color-dark-secondary);
+}
+
+.empty-cart p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.empty-cart .btn {
+    margin: 0 auto;
+}

@@ -1,0 +1,293 @@
+/* 
+ * pages/admin.css - 管理後台樣式
+ */
+
+.admin-section {
+    display: flex;
+    min-height: calc(100vh - 80px);
+}
+
+.admin-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 0;
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 側邊欄 ============ */
+.admin-sidebar {
+    background-color: var(--color-dark-secondary);
+    border-right: 1px solid var(--border-color);
+    padding: var(--spacing-lg);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        height: auto;
+        position: static;
+    }
+}
+
+.admin-header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.admin-header h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.admin-user {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* ============ 側邊欄導航 ============ */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.admin-nav-item {
+    padding: var(--spacing-md);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-base);
+    display: block;
+}
+
+.admin-nav-item:hover {
+    background-color: rgba(0, 245, 255, 0.1);
+    color: var(--color-secondary);
+}
+
+.admin-nav-item.active {
+    background-color: rgba(255, 0, 110, 0.1);
+    color: var(--color-primary);
+    border-left: 3px solid var(--color-primary);
+}
+
+.admin-nav-item.logout {
+    margin-top: auto;
+    color: var(--color-error);
+}
+
+.admin-nav-item.logout:hover {
+    background-color: rgba(255, 0, 110, 0.1);
+}
+
+/* ============ 主內容區 ============ */
+.admin-main {
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+}
+
+.admin-main h1 {
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-light);
+}
+
+/* ============ 表頭帶按鈕 ============ */
+.admin-header-with-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 576px) {
+    .admin-header-with-btn {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .admin-header-with-btn .btn {
+        width: 100%;
+    }
+}
+
+/* ============ 統計卡片 ============ */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.stat-icon {
+    font-size: var(--font-size-3xl);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.stat-value {
+    color: var(--color-primary);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+/* ============ 管理表格 ============ */
+.admin-table {
+    width: 100%;
+    background-color: var(--color-dark-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-xl);
+}
+
+.admin-table thead {
+    background-color: var(--color-dark-secondary);
+}
+
+.admin-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-size: var(--font-size-sm);
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-bold);
+}
+
+.admin-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-dark-secondary);
+}
+
+.admin-table tbody tr {
+    transition: background-color var(--transition-base);
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(255, 0, 110, 0.05);
+}
+
+/* ============ 篩選面板 ============ */
+.admin-filter {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.filter-form {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-end;
+}
+
+.filter-form label {
+    color: var(--color-light);
+    margin-bottom: var(--spacing-xs);
+}
+
+.filter-form select {
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+}
+
+/* ============ 狀態徽章 ============ */
+.badge.status-pending_payment {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning);
+}
+
+.badge.status-confirmed {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+
+.badge.status-shipped {
+    background-color: rgba(0, 245, 255, 0.2);
+    color: var(--color-info);
+    border: 1px solid var(--color-info);
+}
+
+.badge.status-delivered {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+
+.badge.status-cancelled {
+    background-color: rgba(255, 0, 110, 0.2);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+}
+
+/* ============ 空資料 ============ */
+.no-data {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-secondary);
+}
+
+/* ============ 歡迎訊息 ============ */
+.admin-welcome {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+.admin-welcome h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.admin-welcome p {
+    color: var(--color-text-secondary);
+}
+
+@media (max-width: 576px) {
+    .admin-main {
+        padding: var(--spacing-lg);
+    }
+    
+    .admin-table {
+        font-size: var(--font-size-sm);
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: var(--spacing-sm);
+    }
+}

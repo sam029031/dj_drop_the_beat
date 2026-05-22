@@ -1,0 +1,21 @@
+<!-- 快閃訊息 -->
+{% if message %}
+<div class="flash-message alert alert-{{ message_type or 'info' }}" role="alert">
+    <button class="flash-close" onclick="this.parentElement.style.display='none';" aria-label="關閉訊息">×</button>
+    {{ message }}
+</div>
+{% endif %}
+
+{% if error %}
+<div class="flash-message alert alert-error" role="alert">
+    <button class="flash-close" onclick="this.parentElement.style.display='none';" aria-label="關閉訊息">×</button>
+    ❌ {{ error }}
+</div>
+{% endif %}
+
+{% if success %}
+<div class="flash-message alert alert-success" role="alert">
+    <button class="flash-close" onclick="this.parentElement.style.display='none';" aria-label="關閉訊息">×</button>
+    ✅ 操作成功！
+</div>
+{% endif %}

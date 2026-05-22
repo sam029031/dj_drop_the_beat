@@ -1,0 +1,95 @@
+/* 
+ * pages/auth.css - 登入/註冊頁面樣式
+ */
+
+.auth-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.auth-container {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-2xl);
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 30px rgba(255, 0, 110, 0.2);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.auth-header h1 {
+    color: var(--color-primary);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.auth-header p {
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.auth-form .form-group {
+    margin-bottom: 0;
+}
+
+.auth-form label {
+    color: var(--color-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+.auth-form input {
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+.auth-form .btn {
+    margin-top: var(--spacing-md);
+    width: 100%;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    color: var(--color-text-secondary);
+}
+
+.auth-footer a {
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+    .auth-container {
+        padding: var(--spacing-lg);
+    }
+}

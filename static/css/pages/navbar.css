@@ -1,0 +1,163 @@
+/* 
+ * pages/navbar.css - 導航欄樣式
+ */
+
+/* ============ 導航欄 ============ */
+nav.navbar {
+    background-color: var(--color-dark-secondary);
+    border-bottom: 2px solid var(--color-primary);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    padding: var(--spacing-md) 0;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* ============ Logo ============ */
+.navbar-brand {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.navbar-brand:hover {
+    color: var(--color-secondary);
+}
+
+/* ============ 導航菜單 ============ */
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.navbar-item a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+}
+
+.navbar-item a:hover {
+    color: var(--color-secondary);
+    background-color: rgba(0, 245, 255, 0.1);
+}
+
+.navbar-item a.active {
+    color: var(--color-primary);
+}
+
+/* ============ 用戶狀態 ============ */
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.navbar-user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.user-name {
+    color: var(--color-light);
+    font-size: var(--font-size-sm);
+}
+
+/* ============ 購物車圖標 ============ */
+.navbar-cart {
+    position: relative;
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--color-error);
+    color: var(--color-dark);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+}
+
+/* ============ 漢堡菜單 ============ */
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-light);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .navbar-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background-color: var(--color-dark-secondary);
+        flex-direction: column;
+        gap: 0;
+        transition: left var(--transition-base);
+        z-index: 999;
+        overflow-y: auto;
+    }
+    
+    .navbar-menu.active {
+        left: 0;
+    }
+    
+    .navbar-item {
+        width: 100%;
+    }
+    
+    .navbar-item a {
+        display: block;
+        padding: var(--spacing-md);
+        border-radius: 0;
+        border-bottom: 1px solid var(--color-dark-tertiary);
+    }
+    
+    .navbar-toggle {
+        display: block;
+    }
+    
+    .navbar-user {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        width: 100%;
+    }
+}
+
+/* ============ 登出按鈕 ============ */
+.navbar-logout {
+    color: var(--color-error) !important;
+}
+
+.navbar-logout:hover {
+    background-color: rgba(255, 0, 110, 0.1) !important;
+}

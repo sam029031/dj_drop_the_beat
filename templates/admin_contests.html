@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}比賽管理 - 管理後台{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <!-- 側邊欄 -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item active">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+        
+        <!-- 主內容 -->
+        <main class="admin-main">
+            <div class="admin-header-with-btn">
+                <h1>比賽管理</h1>
+                <button class="btn btn-primary" onclick="openAddContestModal()">+ 新增比賽</button>
+            </div>
+            
+            <!-- 比賽列表 -->
+            {% if contests %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>比賽名稱</th>
+                        <th>比賽日期</th>
+                        <th>報名截止</th>
+                        <th>獎金</th>
+                        <th>狀態</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contest in contests %}
+                    <tr>
+                        <td>{{ contest.id }}</td>
+                        <td>{{ contest.name }}</td>
+                        <td>{{ contest.contest_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ contest.registration_deadline.strftime('%Y-%m-%d') }}</td>
+                        <td>NT${{ "%.0f"|format(contest.prize_pool) }}</td>
+                        <td><span class="badge {% if contest.is_active %}active{% else %}inactive{% endif %}">{% if contest.is_active %}進行中{% else %}已結束{% endif %}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="editContest({{ contest.id }})">編輯</button>
+                            <button class="btn btn-sm btn-info" onclick="viewContestRegistrations({{ contest.id }})">報名者</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteContest({{ contest.id }})">刪除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">沒有找到比賽</p>
+            {% endif %}
+        </main>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

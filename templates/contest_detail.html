@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}{{ contest.title }} - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="contest-detail-section">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/">首頁</a> / <a href="/contest">比賽</a> / <span>{{ contest.title }}</span>
+        </nav>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if registered %}
+        <div class="alert alert-success">報名成功，報名編號：{{ registered }}</div>
+        {% endif %}
+
+        <div class="contest-detail-layout">
+            <div class="contest-detail-sidebar">
+                <div class="contest-image">
+                    <div class="image-placeholder">🎤</div>
+                </div>
+
+                <div class="contest-basics">
+                    <div class="basic-item">
+                        <span class="label">報名開始</span>
+                        <span class="value">{{ contest.registration_start.strftime('%Y-%m-%d') if contest.registration_start else '未定' }}</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="label">報名截止</span>
+                        <span class="value {% if is_registration_closed %}deadline-passed{% endif %}">
+                            {{ contest.registration_deadline.strftime('%Y-%m-%d') if contest.registration_deadline else '未定' }}
+                        </span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="label">比賽日期</span>
+                        <span class="value">{{ contest.event_date.strftime('%Y-%m-%d') if contest.event_date else '未定' }}</span>
+                    </div>
+                    <div class="basic-item">
+                        <span class="label">地點</span>
+                        <span class="value">{{ contest.venue }}</span>
+                    </div>
+                    {% if contest.prize_pool and contest.prize_pool > 0 %}
+                    <div class="basic-item">
+                        <span class="label">獎金</span>
+                        <span class="value">NT${{ "%.0f"|format(contest.prize_pool) }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="contest-detail-main">
+                <h1>{{ contest.title }}</h1>
+
+                <div class="contest-section">
+                    <h3>賽事介紹</h3>
+                    <p>{{ contest.description }}</p>
+                </div>
+
+                {% if contest.rules %}
+                <div class="contest-section">
+                    <h3>比賽規則與賽制</h3>
+                    <p>{{ contest.rules }}</p>
+                </div>
+                {% endif %}
+
+                {% if contest.judging_criteria %}
+                <div class="contest-section">
+                    <h3>評分標準與注意事項</h3>
+                    <p>{{ contest.judging_criteria }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if not is_registration_closed %}
+        <section class="contest-registration" id="form">
+            <h2 class="section-title">線上報名</h2>
+
+            <form method="POST" action="/contest/register" class="registration-form">
+                <input type="hidden" name="contest_id" value="{{ contest.id }}" />
+
+                <div class="form-group">
+                    <label for="name">姓名 *</label>
+                    <input type="text" id="name" name="name" value="{{ user.full_name if user else '' }}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">電子郵件 *</label>
+                    <input type="email" id="email" name="email" value="{{ user.email if user else '' }}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">電話 *</label>
+                    <input type="tel" id="phone" name="phone" value="{{ user.phone if user else '' }}" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="dj_name">DJ 藝名（選填）</label>
+                    <input type="text" id="dj_name" name="dj_name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">備註（選填）</label>
+                    <textarea id="notes" name="notes" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">確認報名</button>
+            </form>
+        </section>
+        {% else %}
+        <div class="alert alert-warning">
+            <strong>⚠️ 報名已截止</strong><br>
+            抱歉，此比賽目前無法報名。
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/contest.js"></script>
+{% endblock %}

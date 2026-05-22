@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}管理後台 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <!-- 側邊欄 -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item active">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+        
+        <!-- 主內容 -->
+        <main class="admin-main">
+            <h1>管理儀表板</h1>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-info">
+                        <div class="stat-label">商品</div>
+                        <div class="stat-value">{{ stats.products }}</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-info">
+                        <div class="stat-label">訂單</div>
+                        <div class="stat-value">{{ stats.orders }}</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-info">
+                        <div class="stat-label">課程</div>
+                        <div class="stat-value">{{ stats.courses }}</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🎤</div>
+                    <div class="stat-info">
+                        <div class="stat-label">比賽</div>
+                        <div class="stat-value">{{ stats.contests }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-welcome">
+                <h2>歡迎回到管理後台</h2>
+                <p>使用左側菜單導航到各個管理功能。</p>
+            </div>
+        </main>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

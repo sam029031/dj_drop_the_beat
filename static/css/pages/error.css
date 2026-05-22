@@ -1,0 +1,65 @@
+/* 
+ * pages/error.css - 錯誤頁面樣式
+ */
+
+.error-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px - 200px);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.error-container {
+    text-align: center;
+    max-width: 600px;
+}
+
+.error-code {
+    font-size: clamp(80px, 20vw, 200px);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-xl);
+    text-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+}
+
+.error-section h1 {
+    font-size: var(--font-size-2xl);
+    color: var(--color-light);
+    margin-bottom: var(--spacing-md);
+}
+
+.error-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.error-icon {
+    font-size: 80px;
+    margin: var(--spacing-xl) 0;
+}
+
+.error-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+    .error-code {
+        font-size: 100px;
+    }
+    
+    .error-actions {
+        flex-direction: column;
+    }
+    
+    .error-actions .btn {
+        width: 100%;
+    }
+}

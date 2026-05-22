@@ -1,0 +1,45 @@
+<!-- 頁尾 -->
+<footer class="footer">
+    <div class="footer-container container">
+        <div class="footer-section">
+            <h3>快速連結</h3>
+            <ul>
+                <li><a href="/">首頁</a></li>
+                <li><a href="/category?instrument=ddj">商品分類</a></li>
+                <li><a href="/course">課程報名</a></li>
+                <li><a href="/contest">比賽資訊</a></li>
+                <li><a href="/contact">聯絡我們</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3>聯絡方式</h3>
+            <ul>
+                <li>📱 電話：<a href="tel:{{ contact_phone or '0967-676-767' }}">{{ contact_phone or '0967-676-767' }}</a></li>
+                <li>📧 信箱：<a href="mailto:{{ contact_email or 'contact@dj-platform.local' }}">{{ contact_email or 'contact@dj-platform.local' }}</a></li>
+                <li>📍 地址：{{ contact_address or '台灣台中市東區' }}</li>
+                <li>⏰ 營業時間：{{ business_hours or '09:00 - 18:00' }}</li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3>社群媒體</h3>
+            <ul>
+                <li><a href="https://www.instagram.com/nchu_karaok/" target="_blank">📸 Instagram @nchu_karaok</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 DJ 器材預購與入門學習平台 版權所有</p>
+    </div>
+</footer>
+
+<script>
+// 將聯絡資訊存到全域變數供 JS 使用
+window.contactInfo = {
+    email: "{{ contact_email or 'contact@dj-platform.local' }}",
+    phone: "{{ contact_phone or '0967-676-767' }}",
+    address: "{{ contact_address or '台灣台中市東區' }}",
+};
+</script>

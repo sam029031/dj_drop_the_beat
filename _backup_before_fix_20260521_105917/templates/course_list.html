@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}課程報名 - DJ 器材預購與入門學習平台{% endblock %}
+{% block content %}
+<section class="course-section"><div class="container"><h1 class="section-title">DJ 課程列表</h1><p class="section-subtitle">依上架時間與難度排列，選擇適合你的課程。</p>
+{% if courses %}<div class="courses-grid">{% for course in courses %}<div class="course-card"><div class="course-header"><h3>{{ course.title }}</h3><span class="difficulty-badge">{{ course.difficulty.value if course.difficulty.value else course.difficulty }}</span></div><div class="course-info"><p><strong>講師：</strong>{{ course.instructor }}</p><p><strong>時數：</strong>{{ course.duration_hours }} 小時 / {{ course.lessons }} 堂課</p><p><strong>費用：</strong>NT${{ "%.0f"|format(course.price) }}</p></div><p class="course-description">{{ (course.description or '')[:100] }}...</p><div class="course-actions"><a href="/course/detail?id={{ course.id }}" class="btn btn-secondary">查看詳情</a><a href="/course/detail?id={{ course.id }}#form" class="btn btn-primary">立即報名</a></div></div>{% endfor %}</div>{% else %}<p class="no-courses">目前沒有可報名的課程</p>{% endif %}
+</div></section>
+{% endblock %}
+{% block scripts %}<script src="/static/js/course.js"></script>{% endblock %}

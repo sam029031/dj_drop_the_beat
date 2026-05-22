@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    {% include "partials/head_meta.html" %}
+    <title>{% block title %}DJ 器材預購與入門學習平台{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {% include "partials/navbar.html" %}
+    
+    {% include "partials/flash_message.html" %}
+    
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% include "partials/footer.html" %}
+    
+    <script src="/static/js/app.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

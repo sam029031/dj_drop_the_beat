@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}聯絡我們 - DJ 器材預購與入門學習平台{% endblock %}
+{% block content %}
+<section class="contact-section">
+    <div class="container">
+        <h1 class="section-title">聯絡我們</h1>
+        <p class="section-subtitle">有問題或想合作？歡迎與我們聯絡</p>
+
+        <div class="contact-layout">
+            <aside class="contact-info">
+                <h3>聯絡資訊</h3>
+                <div class="info-item"><span class="label">📍 地址</span><p>{{ contact_address }}</p></div>
+                <div class="info-item"><span class="label">📱 電話</span><p><a href="tel:{{ contact_phone }}">{{ contact_phone }}</a></p></div>
+                <div class="info-item"><span class="label">📧 Email</span><p><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p></div>
+                <div class="info-item"><span class="label">⏰ 營業時間</span><p>{{ business_hours }}</p></div>
+                <div class="info-item"><span class="label">📸 Instagram</span><p><a href="{{ instagram_url }}" target="_blank">https://www.instagram.com/nchu_karaok/</a></p></div>
+            </aside>
+
+            <main class="contact-form-section">
+                <h3>意見回饋 / 廠商贊助</h3>
+                <p>個人意見回饋若已登入，系統會自動帶入會員資料；廠商贊助不需要登入。</p>
+
+                {% if success %}
+                <div class="alert alert-success">✅ 感謝您的訊息，我們將盡快回覆。</div>
+                {% endif %}
+
+                <form method="POST" action="/contact/submit" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">姓名 *</label>
+                        <input type="text" id="name" name="name" value="{{ user.full_name if user else '' }}" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="person_type">單位 or 個人 *</label>
+                        <input type="text" id="person_type" name="person_type" value="{% if user %}個人{% endif %}" placeholder="例：個人、某某公司、某某社團" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>聯絡類型 *</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="message_type" value="personal_feedback" checked /> 個人意見回饋</label>
+                            <label><input type="radio" name="message_type" value="sponsor_inquiry" /> 廠商贊助</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">聯絡信箱 *</label>
+                        <input type="email" id="email" name="email" value="{{ user.email if user else '' }}" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">聯絡電話 *</label>
+                        <input type="tel" id="phone" name="phone" value="{{ user.phone if user else '' }}" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">主旨</label>
+                        <input type="text" id="subject" name="subject" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">詳細內容 *</label>
+                        <textarea id="message" name="message" rows="6" required minlength="10"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">送出訊息</button>
+                        <button type="reset" class="btn btn-secondary">清除</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/contact.js"></script>
+{% endblock %}

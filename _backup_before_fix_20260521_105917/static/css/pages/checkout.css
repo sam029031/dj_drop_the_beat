@@ -1,0 +1,161 @@
+/* 
+ * pages/checkout.css - 結帳頁面樣式
+ */
+
+.checkout-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+    min-height: 80vh;
+}
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 992px) {
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 訂單摘要 ============ */
+.checkout-summary {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    position: sticky;
+    top: var(--spacing-xl);
+    height: fit-content;
+}
+
+@media (max-width: 992px) {
+    .checkout-summary {
+        position: static;
+        top: auto;
+        order: 2;
+    }
+}
+
+.checkout-summary h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-lg);
+}
+
+.summary-item {
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    border-radius: var(--border-radius-md);
+}
+
+.item-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-light);
+    margin-bottom: var(--spacing-xs);
+}
+
+.item-qty {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.item-price {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.total-amount {
+    font-size: var(--font-size-xl);
+}
+
+/* ============ 結帳表單 ============ */
+.checkout-form {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+}
+
+@media (max-width: 992px) {
+    .checkout-form {
+        order: 1;
+    }
+}
+
+.checkout-form h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.checkout-form .form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.checkout-form label {
+    color: var(--color-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+.checkout-form input,
+.checkout-form textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-family-base);
+    transition: all var(--transition-base);
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+/* ============ 結帳操作按鈕 ============ */
+.checkout-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.checkout-actions .btn {
+    flex: 1;
+}
+
+@media (max-width: 576px) {
+    .checkout-actions {
+        flex-direction: column;
+    }
+}
+
+/* checkout layout requirement patch */
+.checkout-layout { display: grid; grid-template-columns: minmax(280px, 1fr) 2fr; gap: 2rem; align-items: start; }
+.checkout-summary { max-height: calc(100vh - 180px); overflow-y: auto; position: sticky; top: 90px; }
+.summary-total { position: sticky; bottom: 0; padding: 1rem 0; }
+@media (max-width: 768px) { .checkout-layout { display: flex; flex-direction: column; } .checkout-summary { order: 1; position: static; max-height: none; overflow: visible; width: 100%; } .checkout-form { order: 2; width: 100%; } }

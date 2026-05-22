@@ -1,0 +1,30 @@
+<nav class="navbar">
+    <div class="navbar-container container">
+        <div class="navbar-brand">
+            <a href="/" class="navbar-logo">🎛️ DJ 器材平台</a>
+        </div>
+
+        <button class="navbar-toggle" id="navbar-toggle" aria-label="切換導覽菜單">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="navbar-menu" id="navbar-menu">
+            <li><a href="/">首頁</a></li>
+            <li><a href="/category?instrument=ddj">器材介紹</a></li>
+            <li><a href="/search">商品搜尋</a></li>
+            <li><a href="/course">課程報名</a></li>
+            <li><a href="/contest">比賽資訊</a></li>
+            <li><a href="/contact">聯絡我們</a></li>
+            <li><a href="/cart" class="navbar-icon" aria-label="購物車">🛒 購物車</a></li>
+            {% if user %}
+                <li><span class="navbar-user">👤 {{ user.username }}</span></li>
+                {% if user.is_admin %}
+                <li><a href="/admin" class="navbar-admin">⚙️ 管理後台</a></li>
+                {% endif %}
+                <li><a href="/logout">登出</a></li>
+            {% else %}
+                <li><a href="/login" class="navbar-login">🔐 登入</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

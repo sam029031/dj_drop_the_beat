@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}課程報名 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="course-section">
+    <div class="container">
+        <h1 class="section-title">DJ 入門課程</h1>
+        <p class="section-subtitle">依上架時間與難度排序，選擇適合你的課程。</p>
+
+        <div class="sort-actions">
+            <a class="btn btn-secondary" href="/course?sort=created">依上架時間</a>
+            <a class="btn btn-secondary" href="/course?sort=difficulty">依難度分級</a>
+        </div>
+
+        {% if courses %}
+        <div class="courses-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                <div class="course-header">
+                    <h3>{{ course.title }}</h3>
+                    <span class="difficulty-badge difficulty-{{ course.difficulty|lower }}">
+                        {{ course.difficulty }}
+                    </span>
+                </div>
+
+                <div class="course-info">
+                    <p><strong>講師：</strong> {{ course.instructor }}</p>
+                    <p><strong>時數：</strong> {{ course.duration_hours }} 小時</p>
+                    <p><strong>適用對象：</strong> {{ course.prerequisites or '一般學員' }}</p>
+                </div>
+
+                <p class="course-description">{{ course.description[:100] if course.description else '' }}...</p>
+
+                <div class="course-price">
+                    <span class="price">NT${{ "%.0f"|format(course.price) }}</span>
+                </div>
+
+                <div class="course-actions">
+                    <a href="/course/detail?id={{ course.id }}" class="btn btn-secondary">查看詳情</a>
+                    <a href="/course/detail?id={{ course.id }}#form" class="btn btn-primary">立即報名</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if total_pages > 1 %}
+        <nav class="pagination">
+            {% if page > 1 %}
+                <a href="/course?page=1&sort={{ sort }}" class="pagination-btn">« 第一頁</a>
+                <a href="/course?page={{ page - 1 }}&sort={{ sort }}" class="pagination-btn">‹ 上一頁</a>
+            {% endif %}
+            <span class="pagination-info">第 {{ page }} / {{ total_pages }} 頁</span>
+            {% if page < total_pages %}
+                <a href="/course?page={{ page + 1 }}&sort={{ sort }}" class="pagination-btn">下一頁 ›</a>
+                <a href="/course?page={{ total_pages }}&sort={{ sort }}" class="pagination-btn">最後頁 »</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+        {% else %}
+        <p class="no-courses">目前沒有可報名的課程</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/course.js"></script>
+{% endblock %}

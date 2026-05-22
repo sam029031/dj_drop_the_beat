@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}訂單管理 - 管理後台{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <!-- 側邊欄 -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item active">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+        
+        <!-- 主內容 -->
+        <main class="admin-main">
+            <h1>訂單管理</h1>
+            
+            <!-- 訂單列表 -->
+            {% if orders %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>訂單編號</th>
+                        <th>訂購人</th>
+                        <th>金額</th>
+                        <th>狀態</th>
+                        <th>付款方式</th>
+                        <th>訂購日期</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order_number }}</td>
+                        <td>{{ order.buyer_name }}</td>
+                        <td>NT${{ "%.0f"|format(order.total_amount) }}</td>
+                        <td>
+                            <span class="badge status-{{ order.status }}">
+                                {% if order.status == 'pending_payment' %}待付款
+                                {% elif order.status == 'confirmed' %}已確認
+                                {% elif order.status == 'shipped' %}已出貨
+                                {% elif order.status == 'delivered' %}已送達
+                                {% elif order.status == 'cancelled' %}已取消
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td>{{ order.payment_method }}</td>
+                        <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="viewOrderDetails({{ order.id }})">檢視</button>
+                            <button class="btn btn-sm btn-primary" onclick="updateOrderStatus({{ order.id }})">更新狀態</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">沒有找到訂單</p>
+            {% endif %}
+        </main>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

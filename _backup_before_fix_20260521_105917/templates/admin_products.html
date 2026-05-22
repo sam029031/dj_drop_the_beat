@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}商品管理 - 管理後台{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <!-- 側邊欄 -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item active">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+        
+        <!-- 主內容 -->
+        <main class="admin-main">
+            <div class="admin-header-with-btn">
+                <h1>商品管理</h1>
+                <button class="btn btn-primary" onclick="openAddProductModal()">+ 新增商品</button>
+            </div>
+            
+            <!-- 種類篩選 -->
+            <div class="admin-filter">
+                <form method="GET" action="/admin/products" class="filter-form">
+                    <label>種類:</label>
+                    <select name="instrument">
+                        <option value="ddj" {% if instrument == 'ddj' %}selected{% endif %}>DJ盤</option>
+                        <option value="audio" {% if instrument == 'audio' %}selected{% endif %}>音響</option>
+                        <option value="wire" {% if instrument == 'wire' %}selected{% endif %}>線材</option>
+                        <option value="music" {% if instrument == 'music' %}selected{% endif %}>音樂</option>
+                    </select>
+                    <button type="submit" class="btn btn-secondary">篩選</button>
+                </form>
+            </div>
+            
+            <!-- 商品列表 -->
+            {% if products %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名稱</th>
+                        <th>品牌</th>
+                        <th>價格</th>
+                        <th>庫存</th>
+                        <th>狀態</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.brand or '-' }}</td>
+                        <td>NT${{ "%.0f"|format(product.price) }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td><span class="badge {% if product.is_active %}active{% else %}inactive{% endif %}">{% if product.is_active %}上架{% else %}下架{% endif %}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" onclick="editProduct({{ product.id }})">編輯</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteProduct({{ product.id }})">刪除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">沒有找到商品</p>
+            {% endif %}
+        </main>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}訂單已提交 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="order-success-section">
+    <div class="container">
+        <div class="success-container">
+            <div class="success-icon">✅</div>
+            
+            <h1>訂單已成功提交！</h1>
+            <p class="success-message">感謝您的預購</p>
+            
+            <div class="order-info-card">
+                <div class="info-row">
+                    <span class="label">訂單編號</span>
+                    <span class="value">{{ order.order_number }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">訂購日期</span>
+                    <span class="value">{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">訂購人</span>
+                    <span class="value">{{ order.buyer_name }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">聯絡信箱</span>
+                    <span class="value">{{ order.buyer_email }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">收貨地址</span>
+                    <span class="value">{{ order.buyer_address }}</span>
+                </div>
+            </div>
+            
+            <!-- 訂單詳情 -->
+            <div class="order-items-card">
+                <h3>訂購項目</h3>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>SET 名稱</th>
+                            <th>數量</th>
+                            <th>單價</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items %}
+                        <tr>
+                            <td>{{ item.preorder_set.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>NT${{ "%.0f"|format(item.unit_price) }}</td>
+                            <td>NT${{ "%.0f"|format(item.subtotal) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="order-total">
+                    <span class="label">總計：</span>
+                    <span class="amount">NT${{ "%.0f"|format(order.total_amount) }}</span>
+                </div>
+            </div>
+            
+            <!-- 付款說明 -->
+            <div class="payment-info-card">
+                <h3>付款說明</h3>
+                <div class="payment-details">
+                    <p><strong>付款方式：</strong> 線下銀行轉帳</p>
+                    <p><strong>帳號資訊：</strong> 將於 24 小時內以 Email 發送</p>
+                    <p><strong>轉帳期限：</strong> 7 天內</p>
+                    <p><strong>出貨時間：</strong> 確認收款後 3-5 工作天內出貨</p>
+                </div>
+            </div>
+            
+            <!-- 下一步行動 -->
+            <div class="success-actions">
+                <a href="/" class="btn btn-secondary">返回首頁</a>
+                <a href="/course" class="btn btn-primary">查看課程</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

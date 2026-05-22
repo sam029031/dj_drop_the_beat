@@ -1,0 +1,203 @@
+/* 
+ * pages/detail.css - 商品詳情頁面樣式
+ */
+
+.detail-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+/* ============ 麵包屑 ============ */
+.breadcrumb {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.breadcrumb a {
+    color: var(--color-secondary);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: var(--color-primary);
+}
+
+/* ============ 詳情佈局 ============ */
+.detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+@media (max-width: 992px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============ 商品圖片 ============ */
+.detail-image {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    position: sticky;
+    top: 80px;
+}
+
+@media (max-width: 992px) {
+    .detail-image {
+        position: static;
+    }
+}
+
+.detail-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============ 商品資訊 ============ */
+.detail-info h1 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.detail-brand {
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.detail-price {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.price-note {
+    color: var(--color-warning);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.price {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* ============ 商品規格 ============ */
+.detail-specs,
+.detail-description {
+    margin-bottom: var(--spacing-lg);
+}
+
+.detail-specs h3,
+.detail-description h3 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.detail-specs ul {
+    list-style: none;
+    margin: 0;
+}
+
+.detail-specs li {
+    padding: var(--spacing-sm) 0;
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-dark-tertiary);
+}
+
+.detail-specs li:last-child {
+    border-bottom: none;
+}
+
+.detail-specs strong {
+    color: var(--color-light);
+}
+
+/* ============ 預購 SET 推薦 ============ */
+.preorder-section {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.preorder-section .section-title {
+    color: var(--color-light);
+}
+
+.preorder-set-card {
+    background-color: var(--color-dark-secondary);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+}
+
+.preorder-set-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.2);
+}
+
+.preorder-set-card h3 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.set-items {
+    background-color: var(--color-dark-tertiary);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-sm);
+}
+
+.set-items div {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.set-price {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ============ 詳情操作 ============ */
+.detail-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+@media (max-width: 576px) {
+    .detail-layout {
+        gap: var(--spacing-lg);
+    }
+    
+    .detail-actions {
+        flex-direction: column;
+    }
+    
+    .detail-actions .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}購物車 - DJ 器材預購與入門學習平台{% endblock %}
+{% block content %}
+<section class="cart-section"><div class="container">
+    <h1 class="section-title">購物車</h1>
+    {% if items %}
+    <div class="cart-content">
+        <div class="cart-items"><table class="cart-table"><thead><tr><th>SET 名稱</th><th>數量</th><th>單價</th><th>小計</th><th>動作</th></tr></thead><tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.preorder_set.name }}</td>
+                <td>
+                    <form method="POST" action="/cart/update/{{ item.id }}" class="inline-form">
+                        <input type="number" name="quantity" class="qty-input" value="{{ item.quantity }}" min="1" max="99" />
+                        <button class="btn btn-secondary btn-sm" type="submit">修改</button>
+                    </form>
+                </td>
+                <td>NT${{ "%.0f"|format(item.unit_price) }}</td>
+                <td>NT${{ "%.0f"|format(item.subtotal) }}</td>
+                <td><form method="POST" action="/cart/remove/{{ item.id }}"><button class="btn btn-danger btn-sm" type="submit">移除</button></form></td>
+            </tr>
+            {% endfor %}
+        </tbody></table></div>
+        <aside class="cart-summary"><h3>訂單摘要</h3><div class="summary-total"><span>總計：</span><span>NT${{ "%.0f"|format(total) }}</span></div><div class="cart-actions"><a href="/category?instrument=ddj" class="btn btn-secondary">繼續購物</a><a href="/checkout" class="btn btn-primary">前往結帳</a></div></aside>
+    </div>
+    <section class="cart-notes"><h3>購物須知</h3><ul><li>本平台提供 DJ 器材預購 SET 購買服務。</li><li>可修改數量或移除購物車商品。</li><li>送出訂單後請依指示完成付款。</li><li>確認付款後 3-5 工作天內安排出貨。</li></ul></section>
+    {% else %}
+    <div class="empty-cart"><p>您的購物車是空的</p><a href="/category?instrument=ddj" class="btn btn-primary">前往分類瀏覽</a></div>
+    {% endif %}
+</div></section>
+{% endblock %}
+{% block scripts %}<script src="/static/js/cart.js"></script>{% endblock %}

@@ -1,0 +1,25 @@
+<!-- 預購 SET 卡片 -->
+<div class="preorder-set-card">
+    <div class="set-image">
+        <img src="{{ set.image or '/static/images/placeholder.jpg' }}" alt="{{ set.name }}" />
+    </div>
+    <div class="set-info">
+        <h3 class="set-name">{{ set.name }}</h3>
+        {% if set.description %}
+        <p class="set-description">{{ set.description }}</p>
+        {% endif %}
+        <div class="set-items">
+            {% for item in set.items %}
+                <div class="set-item">
+                    • {% if item.instrument_type == 'ddj' %}DJ盤{% elif item.instrument_type == 'audio' %}音響{% elif item.instrument_type == 'wire' %}線材{% elif item.instrument_type == 'music' %}音樂{% elif item.instrument_type == 'course' %}課程{% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="set-price">NT${{ "%.0f"|format(set.price) }}</div>
+        <form method="POST" action="/api/cart/add-set" class="add-to-cart-form">
+            <input type="hidden" name="set_id" value="{{ set.id }}" />
+            <input type="hidden" name="quantity" value="1" />
+            <button type="submit" class="btn btn-primary btn-sm">加入購物車</button>
+        </form>
+    </div>
+</div>

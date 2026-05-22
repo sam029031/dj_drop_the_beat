@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}搜尋結果 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="search-section">
+    <div class="container">
+        <h1 class="section-title">搜尋結果</h1>
+        
+        <div class="search-summary">
+            <p>搜尋關鍵字：<strong>"{{ q }}"</strong></p>
+            <p>共找到 <strong>{{ total }}</strong> 項商品</p>
+        </div>
+        
+        <!-- 新搜尋 -->
+        <form class="search-form" action="/search" method="GET">
+            <input type="text" name="q" placeholder="輸入商品名稱或品牌" value="{{ q }}" class="search-input" />
+            <button type="submit" class="btn btn-primary">重新搜尋</button>
+        </form>
+        
+        <!-- 結果列表 -->
+        {% if results %}
+        <div class="products-grid">
+            {% for product, inst_type in results %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ product.image or '/static/images/placeholder.jpg' }}" alt="{{ product.name }}" />
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    {% if product.brand %}<p class="product-brand">{{ product.brand }}</p>{% endif %}
+                    <p class="product-price">NT${{ "%.0f"|format(product.price) }}</p>
+                    {% if product.description %}<p class="product-desc">{{ product.description[:60] }}</p>{% endif %}
+                    <a href="/detail?instrument={{ inst_type }}&id={{ product.id }}" class="btn btn-secondary">查看詳情</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- 分頁 -->
+        {% if total_pages > 1 %}
+        <nav class="pagination">
+            {% if page > 1 %}
+                <a href="/search?q={{ q }}&page=1" class="pagination-btn">« 第一頁</a>
+                <a href="/search?q={{ q }}&page={{ page - 1 }}" class="pagination-btn">‹ 上一頁</a>
+            {% endif %}
+            <span class="pagination-info">第 {{ page }} / {{ total_pages }} 頁</span>
+            {% if page < total_pages %}
+                <a href="/search?q={{ q }}&page={{ page + 1 }}" class="pagination-btn">下一頁 ›</a>
+                <a href="/search?q={{ q }}&page={{ total_pages }}" class="pagination-btn">最後頁 »</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+        {% else %}
+        <p class="no-results">找不到符合條件的商品</p>
+        <a href="/category?instrument=ddj" class="btn btn-secondary">返回分類瀏覽</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/search.js"></script>
+{% endblock %}

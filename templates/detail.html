@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<section class="detail-section">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/">首頁</a> / <a href="/category?instrument={{ instrument }}">分類</a> / <span>{{ product.name }}</span>
+        </nav>
+        
+        <div class="detail-layout">
+            <!-- 左側：商品圖片 -->
+            <div class="detail-image">
+                <img src="{{ product.image or '/static/images/placeholder.jpg' }}" alt="{{ product.name }}" />
+            </div>
+            
+            <!-- 右側：商品資訊 -->
+            <div class="detail-info">
+                <h1>{{ product.name }}</h1>
+                
+                {% if product.brand %}<p class="detail-brand">品牌: {{ product.brand }}</p>{% endif %}
+                
+                <div class="detail-price">
+                    <p class="price-note">（此頁面展示單一商品，購買請選擇下方預購 SET）</p>
+                    <p class="price">NT${{ "%.0f"|format(product.price) }}</p>
+                </div>
+                
+                <!-- 商品規格 -->
+                <div class="detail-specs">
+                    <h3>商品規格</h3>
+                    <ul>
+                        {% if instrument == 'ddj' %}
+                            <li><strong>品牌：</strong> {{ product.brand }}</li>
+                            {% if product.features %}<li><strong>功能特色：</strong> {{ product.features.replace('\n', '<br/>') }}</li>{% endif %}
+                            <li><strong>庫存：</strong> {{ product.stock }} 台</li>
+                        {% elif instrument == 'audio' %}
+                            <li><strong>形式：</strong> {{ product.form }}</li>
+                            {% if product.size %}<li><strong>大小：</strong> {{ product.size }}</li>{% endif %}
+                            <li><strong>品牌：</strong> {{ product.brand }}</li>
+                            {% if product.features %}<li><strong>功能特色：</strong> {{ product.features.replace('\n', '<br/>') }}</li>{% endif %}
+                            <li><strong>庫存：</strong> {{ product.stock }} 組</li>
+                        {% elif instrument == 'wire' %}
+                            <li><strong>類型：</strong> {{ product.type }}</li>
+                            {% if product.length %}<li><strong>長度：</strong> {{ product.length }}</li>{% endif %}
+                            {% if product.brand %}<li><strong>品牌：</strong> {{ product.brand }}</li>{% endif %}
+                            <li><strong>庫存：</strong> {{ product.stock }} 條</li>
+                        {% elif instrument == 'music' %}
+                            <li><strong>格式：</strong> {{ product.format }}</li>
+                            {% if product.brand %}<li><strong>發行方：</strong> {{ product.brand }}</li>{% endif %}
+                            <li><strong>庫存：</strong> {{ product.stock }} 套</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                <!-- 商品描述 -->
+                {% if product.description %}
+                <div class="detail-description">
+                    <h3>商品介紹</h3>
+                    <p>{{ product.description }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- 預購 SET 推薦區 -->
+        <section class="preorder-section">
+            <h2 class="section-title">立即預購優惠組合</h2>
+            <p class="section-subtitle">本平台僅提供預購 SET 方案，選擇最適合您的組合</p>
+            
+            <div class="preorder-sets-grid">
+                {% for set in preorder_sets %}
+                <div class="preorder-set-card">
+                    <h3>{{ set.name }}</h3>
+                    <p class="set-description">{{ set.description }}</p>
+                    <div class="set-items">
+                        {% for item in set.items %}
+                        <div>• {% if item.instrument_type == 'ddj' %}DJ盤{% elif item.instrument_type == 'audio' %}音響{% elif item.instrument_type == 'wire' %}線材{% elif item.instrument_type == 'music' %}音樂{% elif item.instrument_type == 'course' %}課程{% endif %}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="set-price">NT${{ "%.0f"|format(set.price) }}</div>
+                    <form method="POST" action="/cart/add" class="add-to-cart-form">
+                        <input type="hidden" name="set_id" value="{{ set.id }}" />
+                        <button type="submit" class="btn btn-primary">加入購物車</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
+        <div class="detail-actions">
+            <a href="/category?instrument={{ instrument }}" class="btn btn-secondary">返回分類</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/detail.js"></script>
+{% endblock %}

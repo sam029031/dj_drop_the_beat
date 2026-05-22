@@ -1,0 +1,51 @@
+/* 
+ * pages/search.css - 搜尋結果頁面樣式
+ */
+
+.search-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.search-summary {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.search-summary p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.search-summary strong {
+    color: var(--color-secondary);
+}
+
+.search-form {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.search-input {
+    flex: 1;
+    padding: var(--spacing-md);
+    background-color: var(--color-dark-tertiary);
+    color: var(--color-light);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+}
+
+.no-results {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-secondary);
+}
