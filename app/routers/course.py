@@ -36,6 +36,7 @@ async def course_list(
     page: int = 1,
     sort: str = "created",
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
     query = db.query(Course).filter(Course.is_active == True)
 
@@ -57,6 +58,7 @@ async def course_list(
             "page": page,
             "total_pages": (total + 11) // 12,
             "sort": sort,
+            "user": current_user,
         },
     )
 

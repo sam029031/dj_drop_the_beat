@@ -48,39 +48,34 @@ nav.navbar {
     list-style: none;
     gap: var(--spacing-lg);
     align-items: center;
+    padding: 0;
+    margin: 0;
 }
 
-.navbar-item a {
+.navbar-menu li a,
+.navbar-menu li span.navbar-user {
     color: var(--color-text-secondary);
     text-decoration: none;
-    transition: all var(--transition-base);
+    transition: color var(--transition-base), background-color var(--transition-base);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-md);
+    white-space: nowrap;
 }
 
-.navbar-item a:hover {
+.navbar-menu li a:hover {
     color: var(--color-secondary);
     background-color: rgba(0, 245, 255, 0.1);
 }
 
-.navbar-item a.active {
-    color: var(--color-primary);
+/* Override the global .navbar-icon 24px width from variables.css */
+.navbar-menu li a.navbar-icon {
+    width: auto;
+    height: auto;
+    line-height: inherit;
 }
 
 /* ============ 用戶狀態 ============ */
-.navbar-user {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg);
-}
-
-.navbar-user-info {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-}
-
-.user-name {
+.navbar-menu li span.navbar-user {
     color: var(--color-light);
     font-size: var(--font-size-sm);
 }

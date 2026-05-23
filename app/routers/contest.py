@@ -51,6 +51,7 @@ async def contest_list(
     request: Request,
     page: int = 1,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
     now = _now()
 
@@ -80,6 +81,7 @@ async def contest_list(
             "contests": contests,
             "page": page,
             "total_pages": (total + 11) // 12,
+            "user": current_user,
         },
     )
 
