@@ -239,8 +239,9 @@ input[type="radio"] {
 .filter-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
-    align-items: start;
+    column-gap: var(--spacing-xl);
+    row-gap: var(--spacing-md);
+    align-items: stretch;
 }
 
 /* Each filter group */
@@ -282,11 +283,15 @@ input[type="radio"] {
     margin-bottom: 0;
 }
 
-/* 種類 radio container — 2 per row on desktop */
+/* 種類 radio container — 2 per row on desktop, natural label sizing */
 .filter-radios {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs) var(--spacing-md);
+}
+
+.filter-radios label {
+    flex: 0 0 calc(50% - var(--spacing-md) / 2);
 }
 
 /* Text / number inputs inside filter groups */
@@ -366,6 +371,10 @@ input[type="radio"] {
         display: flex;
         flex-direction: column;
         gap: var(--spacing-sm);
+    }
+
+    .filter-radios label {
+        flex: none;
     }
 
     /* Price inputs must be allowed to shrink */
