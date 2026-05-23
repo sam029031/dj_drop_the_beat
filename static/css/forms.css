@@ -211,28 +211,35 @@ input[type="radio"] {
 }
 
 /* ============ 篩選面板 ============ */
-.filter-panel {
+.filter-panel,
+.filter-section {
     background-color: var(--color-dark-tertiary);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--color-secondary);
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
 }
 
 .filter-title {
-    color: var(--color-primary);
+    color: var(--color-secondary);
     font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
     margin-bottom: var(--spacing-lg);
 }
 
-.filter-form {
+/* Desktop: all filter groups in one row */
+.filter-form,
+.filter-grid {
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+    flex-direction: row;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
-/* Each filter group — styled like .search-summary */
+/* Each filter group — equal width */
 .filter-group {
+    flex: 1 1 200px;
     border: 1px solid var(--color-secondary);
     border-radius: var(--border-radius-md);
     background-color: var(--color-dark-secondary);
@@ -240,60 +247,108 @@ input[type="radio"] {
     margin: 0;
 }
 
-.filter-group legend {
+.filter-group legend,
+.filter-label {
+    display: block;
     color: var(--color-secondary);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     padding: 0 var(--spacing-xs);
     margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* Radio labels inside filter groups */
 .filter-group label {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--spacing-sm);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-secondary);
     cursor: pointer;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 0;
 }
 
-.filter-group label:last-of-type {
-    margin-bottom: 0;
+/* 種類 radio container — horizontal on desktop */
+.filter-radios {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm) var(--spacing-md);
 }
 
 /* Text / number inputs inside filter groups */
 .filter-input {
     width: 100%;
+    box-sizing: border-box;
     margin-top: var(--spacing-xs);
 }
 
 /* Price range row */
-.price-range {
+.price-range,
+.filter-price-row {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-xs);
 }
 
-.price-range .filter-input {
+.price-range .filter-input,
+.filter-price-row .filter-input {
     flex: 1;
     width: auto;
     margin-top: 0;
 }
 
-.price-range span {
+.price-range span,
+.filter-price-sep {
     color: var(--color-text-secondary);
     flex-shrink: 0;
 }
 
-/* Filter action buttons */
-.filter-buttons {
+/* Filter action buttons — always side by side */
+.filter-buttons,
+.filter-actions {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+/* ── Responsive: mobile < 768px ── */
+@media (max-width: 767px) {
+    .filter-form,
+    .filter-grid {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .filter-group {
+        flex: 1 1 100%;
+    }
+
+    /* 種類 radio buttons — vertical on mobile */
+    .filter-radios {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+}
+
+/* Category page layout */
+.category-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.category-layout {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+}
+
+.category-main {
+    flex: 1;
 }
 
 /* ============ 分頁 ============ */

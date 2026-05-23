@@ -101,6 +101,19 @@
     opacity: 0.5;
 }
 
+/* 輪廓按鈕 (teal outline) */
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+}
+
 /* 按鈕尺寸 */
 .btn-sm {
     padding: var(--spacing-sm) var(--spacing-md);
