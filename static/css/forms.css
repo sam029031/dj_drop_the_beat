@@ -338,24 +338,6 @@ input[type="radio"] {
         flex-direction: column;
         gap: var(--spacing-sm);
     }
-
-    /* 售價範圍 inputs — stacked vertically on mobile */
-    .price-range,
-    .filter-price-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .price-range .filter-input,
-    .filter-price-row .filter-input {
-        width: 100%;
-        flex: none;
-    }
-
-    .price-range span,
-    .filter-price-sep {
-        display: none;
-    }
 }
 
 /* Category page layout */
