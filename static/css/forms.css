@@ -234,25 +234,28 @@ input[type="radio"] {
     gap: var(--spacing-lg);
 }
 
-/* Row of filter groups */
+/* Row of filter groups — 2-column grid: [種類 | 品牌] then [售價範圍 full width] */
 .filter-groups,
 .filter-grid {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--spacing-lg);
-    align-items: flex-start;
-    flex-wrap: wrap;
+    align-items: start;
 }
 
-/* Each filter group — equal width */
+/* Each filter group */
 .filter-group {
-    flex: 1 1 200px;
     min-width: 0;           /* fieldset default min-width:min-content causes overflow */
     border: 1px solid var(--color-secondary);
     border-radius: var(--border-radius-md);
     background-color: var(--color-dark-secondary);
     padding: var(--spacing-md);
     margin: 0;
+}
+
+/* 售價範圍 (last group) spans both columns */
+.filter-group:last-child {
+    grid-column: 1 / -1;
 }
 
 .filter-group legend,
@@ -279,12 +282,11 @@ input[type="radio"] {
     margin-bottom: 0;
 }
 
-/* 種類 radio container — horizontal on desktop */
+/* 種類 radio container — 2 per row on desktop */
 .filter-radios {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm) var(--spacing-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
 }
 
 /* Text / number inputs inside filter groups */
@@ -341,6 +343,7 @@ input[type="radio"] {
 
     .filter-groups,
     .filter-grid {
+        display: flex;
         flex-direction: column;
         align-items: stretch;
         gap: var(--spacing-md);
@@ -348,14 +351,19 @@ input[type="radio"] {
     }
 
     .filter-group {
-        flex: none;
         width: 100%;
         max-width: 100%;
         min-width: 0;
     }
 
-    /* 種類 radio buttons — vertical on mobile */
+    /* Reset full-width span — not needed in flex column */
+    .filter-group:last-child {
+        grid-column: auto;
+    }
+
+    /* 種類 radio buttons — single column on mobile */
     .filter-radios {
+        display: flex;
         flex-direction: column;
         gap: var(--spacing-sm);
     }
