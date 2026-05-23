@@ -1,17 +1,13 @@
 {% extends "base.html" %}
-
 {% block title %}比賽管理 - 管理後台{% endblock %}
-
 {% block content %}
 <section class="admin-section">
     <div class="admin-container">
-        <!-- 側邊欄 -->
         <aside class="admin-sidebar">
             <div class="admin-header">
                 <h3>管理後台</h3>
                 <p class="admin-user">{{ user.username }}</p>
             </div>
-            
             <nav class="admin-nav">
                 <a href="/admin" class="admin-nav-item">📊 儀表板</a>
                 <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
@@ -21,15 +17,12 @@
                 <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
             </nav>
         </aside>
-        
-        <!-- 主內容 -->
+
         <main class="admin-main">
             <div class="admin-header-with-btn">
                 <h1>比賽管理</h1>
-                <button class="btn btn-primary" onclick="openAddContestModal()">+ 新增比賽</button>
             </div>
-            
-            <!-- 比賽列表 -->
+
             {% if contests %}
             <table class="admin-table">
                 <thead>
@@ -47,8 +40,8 @@
                     {% for contest in contests %}
                     <tr>
                         <td>{{ contest.id }}</td>
-                        <td>{{ contest.name }}</td>
-                        <td>{{ contest.contest_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ contest.title }}</td>
+                        <td>{{ contest.event_date.strftime('%Y-%m-%d') }}</td>
                         <td>{{ contest.registration_deadline.strftime('%Y-%m-%d') }}</td>
                         <td>NT${{ "%.0f"|format(contest.prize_pool) }}</td>
                         <td><span class="badge {% if contest.is_active %}active{% else %}inactive{% endif %}">{% if contest.is_active %}進行中{% else %}已結束{% endif %}</span></td>
@@ -56,6 +49,48 @@
                             <button class="btn btn-sm btn-secondary" onclick="editContest({{ contest.id }})">編輯</button>
                             <button class="btn btn-sm btn-info" onclick="viewContestRegistrations({{ contest.id }})">報名者</button>
                             <button class="btn btn-sm btn-danger" onclick="deleteContest({{ contest.id }})">刪除</button>
+                        </td>
+                    </tr>
+                    <tr class="edit-row contest-edit-row" id="edit-contest-{{ contest.id }}">
+                        <td colspan="7">
+                            <div class="edit-form-wrapper">
+                                <form method="POST" action="/admin/contests/{{ contest.id }}/edit" class="inline-edit-form">
+                                    <div class="form-grid">
+                                        <div class="form-field">
+                                            <label>比賽名稱</label>
+                                            <input type="text" name="title" value="{{ contest.title }}" required>
+                                        </div>
+                                        <div class="form-field">
+                                            <label>地點</label>
+                                            <input type="text" name="venue" value="{{ contest.venue }}" required>
+                                        </div>
+                                        <div class="form-field">
+                                            <label>獎金</label>
+                                            <input type="number" name="prize_pool" step="1" value="{{ contest.prize_pool | int }}">
+                                        </div>
+                                        <div class="form-field">
+                                            <label>報名開始</label>
+                                            <input type="datetime-local" name="registration_start" value="{{ contest.registration_start.strftime('%Y-%m-%dT%H:%M') if contest.registration_start else '' }}" required>
+                                        </div>
+                                        <div class="form-field">
+                                            <label>報名截止</label>
+                                            <input type="datetime-local" name="registration_deadline" value="{{ contest.registration_deadline.strftime('%Y-%m-%dT%H:%M') if contest.registration_deadline else '' }}" required>
+                                        </div>
+                                        <div class="form-field">
+                                            <label>比賽日期</label>
+                                            <input type="datetime-local" name="event_date" value="{{ contest.event_date.strftime('%Y-%m-%dT%H:%M') if contest.event_date else '' }}" required>
+                                        </div>
+                                        <div class="form-field full-width">
+                                            <label>賽事介紹</label>
+                                            <textarea name="description" rows="3">{{ contest.description or '' }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="cancelEditContest({{ contest.id }})">取消</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">儲存</button>
+                                    </div>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -68,7 +103,6 @@
     </div>
 </section>
 {% endblock %}
-
 {% block scripts %}
 <script src="/static/js/admin.js"></script>
 {% endblock %}

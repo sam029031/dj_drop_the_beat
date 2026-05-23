@@ -281,13 +281,97 @@
     .admin-main {
         padding: var(--spacing-lg);
     }
-    
+
     .admin-table {
         font-size: var(--font-size-sm);
     }
-    
+
     .admin-table th,
     .admin-table td {
         padding: var(--spacing-sm);
     }
+}
+
+/* ============ 行內編輯表單 ============ */
+.edit-row td {
+    padding: 0 !important;
+    border-bottom: none !important;
+}
+
+.edit-form-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.edit-row.open .edit-form-wrapper {
+    max-height: 800px;
+}
+
+.inline-edit-form {
+    padding: var(--spacing-lg);
+    background-color: rgba(0, 245, 255, 0.04);
+    border-top: 2px solid var(--color-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inline-edit-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.inline-edit-form .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inline-edit-form .form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.inline-edit-form label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.inline-edit-form .form-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+    margin-top: var(--spacing-md);
+}
+
+/* ============ 返回連結 & 匯出按鈕 ============ */
+.back-link {
+    display: inline-block;
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.back-link:hover {
+    color: var(--color-primary);
+}
+
+.export-section {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ============ 徽章 (active/inactive) ============ */
+.badge.active {
+    background-color: rgba(0, 255, 0, 0.15);
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+
+.badge.inactive {
+    background-color: rgba(255, 0, 110, 0.15);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
 }

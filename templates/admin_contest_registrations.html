@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{{ contest.title }} - 報名者列表{% endblock %}
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item active">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <a href="/admin/contests" class="back-link">← 返回比賽管理</a>
+            <div class="admin-header-with-btn">
+                <h1>{{ contest.title }} — 報名者列表</h1>
+            </div>
+
+            {% if registrations %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>名字</th>
+                        <th>電子郵件</th>
+                        <th>電話</th>
+                        <th>DJ 藝名</th>
+                        <th>備註</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reg in registrations %}
+                    <tr>
+                        <td>{{ reg.name }}</td>
+                        <td>{{ reg.email }}</td>
+                        <td>{{ reg.phone }}</td>
+                        <td>{{ reg.dj_name or '—' }}</td>
+                        <td>{{ reg.notes or '—' }}</td>
+                        <td>
+                            <form method="POST" action="/admin/contests/{{ contest.id }}/registrations/{{ reg.id }}/delete" onsubmit="return confirm('確定刪除此報名者？')">
+                                <button type="submit" class="btn btn-sm btn-danger">刪除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-data">尚無報名者</p>
+            {% endif %}
+
+            <div class="export-section">
+                <a href="/admin/contests/{{ contest.id }}/registrations/export" class="btn btn-secondary">匯出 CSV</a>
+            </div>
+        </main>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

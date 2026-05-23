@@ -41,8 +41,8 @@
                 <form method="POST" action="/admin/products/create" class="admin-product-form">
                     <input type="hidden" name="instrument" value="{{ instrument }}">
                     <div class="form-row">
-                        <input name="name" placeholder="名稱" required>
-                        <input name="brand" placeholder="品牌 / 類型">
+                        <input type="text" name="name" placeholder="名稱" required>
+                        <input type="text" name="brand" placeholder="品牌 / 類型">
                         <input name="price" type="number" step="1" placeholder="價格" required>
                         <input name="stock" type="number" placeholder="庫存" value="0">
                     </div>
@@ -63,8 +63,8 @@
                     <tr>
                         <form method="POST" action="/admin/products/{{ instrument }}/{{ product.id }}/edit">
                             <td>{{ product.id }}</td>
-                            <td><input name="name" value="{{ product.name if product.name is defined else product.title }}"></td>
-                            <td><input name="brand" value="{{ product.brand if product.brand is defined else (product.genre if product.genre is defined else '') }}"></td>
+                            <td><input type="text" name="name" value="{{ product.name if product.name is defined else product.title }}"></td>
+                            <td><input type="text" name="brand" value="{{ product.brand if product.brand is defined else (product.genre if product.genre is defined else '') }}"></td>
                             <td><input name="price" type="number" step="1" value="{{ product.price }}"></td>
                             <td><input name="stock" type="number" value="{{ product.in_stock if product.in_stock is defined else 0 }}"></td>
                             <td>
