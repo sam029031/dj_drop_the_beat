@@ -94,18 +94,28 @@ function initNavbarToggle() {
     const toggle = document.querySelector('.navbar-toggle');
     const menu = document.querySelector('.navbar-menu');
 
-    if (toggle && menu) {
-        toggle.addEventListener('click', () => {
-            menu.classList.toggle('active');
-        });
+    if (!toggle || !menu) return;
 
-        // 點擊菜單項目後關閉菜單
-        document.querySelectorAll('.navbar-item a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.remove('active');
-            });
-        });
-    }
+    const close = () => {
+        menu.classList.remove('active');
+        toggle.classList.remove('active');
+    };
+
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const opening = menu.classList.toggle('active');
+        toggle.classList.toggle('active', opening);
+    });
+
+    // 點擊菜單連結後關閉菜單
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', close);
+    });
+
+    // 點擊外部關閉菜單
+    document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target)) close();
+    });
 }
 
 /**
