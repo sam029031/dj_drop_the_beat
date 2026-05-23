@@ -138,4 +138,10 @@
 
 {% block scripts %}
 <script src="/static/js/app.js"></script>
+<script>
+if (new URLSearchParams(window.location.search).get('order_success') === '1') {
+    alert('送出訂單成功');
+    history.replaceState(null, '', '/');
+}
+</script>
 {% endblock %}

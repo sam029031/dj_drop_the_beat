@@ -219,31 +219,81 @@ input[type="radio"] {
     margin-bottom: var(--spacing-xl);
 }
 
+.filter-title {
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
 .filter-form {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--spacing-md);
 }
 
-.filter-form > div {
+/* Each filter group — styled like .search-summary */
+.filter-group {
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-dark-secondary);
+    padding: var(--spacing-md);
+    margin: 0;
+}
+
+.filter-group legend {
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    padding: 0 var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Radio labels inside filter groups */
+.filter-group label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    margin-bottom: var(--spacing-xs);
+}
+
+.filter-group label:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Text / number inputs inside filter groups */
+.filter-input {
+    width: 100%;
+    margin-top: var(--spacing-xs);
+}
+
+/* Price range row */
+.price-range {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
+}
+
+.price-range .filter-input {
+    flex: 1;
+    width: auto;
+    margin-top: 0;
+}
+
+.price-range span {
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+}
+
+/* Filter action buttons */
+.filter-buttons {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-}
-
-.filter-form label {
-    font-size: var(--font-size-sm);
-}
-
-@media (max-width: 768px) {
-    .filter-form {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (min-width: 768px) {
-    .filter-form {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 /* ============ 分頁 ============ */

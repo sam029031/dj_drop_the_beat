@@ -47,7 +47,7 @@ async def checkout_submit(
             buyer_address=buyer_address,
             notes=notes
         )
-        return RedirectResponse(url=f"/order-success?order_id={order.id}", status_code=303)
+        return RedirectResponse(url="/?order_success=1", status_code=303)
     except ValueError as exc:
         cart_view = CartService.get_cart_view(db, user.id)
         return templates.TemplateResponse(
