@@ -227,8 +227,15 @@ input[type="radio"] {
     margin-bottom: var(--spacing-lg);
 }
 
-/* Desktop: all filter groups in one row */
-.filter-form,
+/* Form: column so buttons always sit below the groups row */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* Row of filter groups */
+.filter-groups,
 .filter-grid {
     display: flex;
     flex-direction: row;
@@ -315,16 +322,15 @@ input[type="radio"] {
     display: flex;
     flex-direction: row;
     gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
     flex-wrap: wrap;
 }
 
 /* ── Responsive: mobile < 768px ── */
 @media (max-width: 767px) {
-    .filter-form,
+    .filter-groups,
     .filter-grid {
         flex-direction: column;
-        align-items: stretch;   /* override flex-start so groups fill full width */
+        align-items: stretch;
         gap: var(--spacing-md);
     }
 
