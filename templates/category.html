@@ -17,7 +17,7 @@
             <!-- 主內容 -->
             <div class="category-main">
                 <!-- 篩選摘要 -->
-                <div class="filter-summary">
+                <div class="search-summary">
                     <p>共 <strong>{{ total }}</strong> 項商品</p>
                     {% if brand_filter %}<span class="filter-tag">品牌: {{ brand_filter }} <a href="/category?instrument={{ instrument }}">✕</a></span>{% endif %}
                     {% if price_min > 0 or price_max < 999999 %}<span class="filter-tag">價格: {{ price_min }} - {{ price_max }} <a href="/category?instrument={{ instrument }}">✕</a></span>{% endif %}

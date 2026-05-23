@@ -17,7 +17,7 @@
             <li><a href="/contact">聯絡我們</a></li>
             <li><a href="/cart" class="navbar-icon" aria-label="購物車">🛒 購物車</a></li>
             {% if user %}
-                <li><span class="navbar-user">👤 {{ user.username }}</span></li>
+                <li><a href="/profile" class="navbar-user">👤 {{ user.username }}</a></li>
                 {% if user.is_admin %}
                 <li><a href="/admin" class="navbar-admin">⚙️ 管理後台</a></li>
                 {% endif %}

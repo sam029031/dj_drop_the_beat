@@ -7,6 +7,7 @@ from pathlib import Path
 
 from app.core.database import get_db
 from app.core.dependencies import get_optional_current_user
+from app.models.order import Order
 from app.services.auth_service import AuthService
 from app.schemas.auth import UserRegister
 
@@ -105,6 +106,13 @@ async def logout():
     redirect = RedirectResponse(url="/", status_code=303)
     redirect.delete_cookie("session_id", path="/")
     return redirect
+
+@router.get("/profile", response_class=HTMLResponse)
+async def profile_page(request: Request, db: Session = Depends(get_db), user=Depends(get_optional_current_user)):
+    if not user:
+        return RedirectResponse(url="/login?next=/profile", status_code=303)
+    orders = db.query(Order).filter(Order.user_id == user.id).order_by(Order.created_at.desc()).all()
+    return templates.TemplateResponse("profile.html", {"request": request, "user": user, "orders": orders})
 
 @router.post("/api/login")
 async def api_login(payload: dict, response: Response, db: Session = Depends(get_db)):

@@ -92,6 +92,11 @@
 .radio-group {
     display: flex;
     gap: var(--spacing-lg);
+    text-align: left;
+}
+
+.contact-form .form-group > label {
+    text-align: left;
 }
 
 .radio-group label {

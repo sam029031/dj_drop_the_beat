@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block title %}我的帳戶 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block extra_head %}
+<style>
+.profile-section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+    min-height: 70vh;
+}
+
+.profile-header {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.profile-avatar {
+    font-size: 3rem;
+}
+
+.profile-info h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.profile-info p {
+    color: var(--color-text-secondary);
+    margin-bottom: 0;
+    font-size: var(--font-size-sm);
+}
+
+/* ── Order table ── */
+.orders-table {
+    width: 100%;
+    background-color: var(--color-dark-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.orders-table thead {
+    background-color: var(--color-dark-secondary);
+}
+
+.orders-table th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-size: var(--font-size-sm);
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-bold);
+}
+
+.orders-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-dark-secondary);
+}
+
+.order-main-row {
+    cursor: pointer;
+    transition: background-color var(--transition-base);
+    user-select: none;
+}
+
+.order-main-row:hover {
+    background-color: rgba(0, 245, 255, 0.06);
+}
+
+.order-main-row.open {
+    background-color: rgba(0, 245, 255, 0.04);
+}
+
+.order-toggle-icon {
+    color: var(--color-secondary);
+    font-style: normal;
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.order-main-row.open .order-toggle-icon {
+    transform: rotate(90deg);
+}
+
+/* ── Expandable detail row ── */
+.order-detail-row td {
+    padding: 0 !important;
+    border-bottom: none !important;
+}
+
+.order-detail-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.order-detail-row.open .order-detail-wrapper {
+    max-height: 600px;
+}
+
+.order-items-table {
+    width: 100%;
+    border-top: 2px solid var(--color-secondary);
+    background-color: rgba(0, 245, 255, 0.03);
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.order-items-table th {
+    background-color: transparent;
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.order-items-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-text-secondary);
+}
+
+.order-items-table tfoot td {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    border-bottom: none;
+    color: var(--color-light);
+    font-weight: var(--font-weight-bold);
+}
+
+.order-items-table tfoot .total-label {
+    color: var(--color-secondary);
+}
+
+.order-items-table tfoot .total-amount {
+    color: var(--color-primary);
+}
+
+.no-orders {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-text-secondary);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="container">
+
+        <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <h2>{{ user.username }}</h2>
+                {% if user.email %}<p>{{ user.email }}</p>{% endif %}
+            </div>
+        </div>
+
+        <h2 style="margin-bottom: var(--spacing-lg);">訂單紀錄</h2>
+
+        {% if orders %}
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th style="width:2rem;"></th>
+                    <th>訂單編號</th>
+                    <th>商品</th>
+                    <th>總金額</th>
+                    <th>狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr class="order-main-row" onclick="toggleOrder({{ order.id }})">
+                    <td><i class="order-toggle-icon">▶</i></td>
+                    <td>{{ order.order_number }}</td>
+                    <td>
+                        {% if order.items %}
+                            {% for item in order.items[:2] %}{{ item.set_name }}{% if not loop.last %}、{% endif %}{% endfor %}{% if order.items|length > 2 %} <span style="color:var(--color-text-tertiary)">+{{ order.items|length - 2 }} 項</span>{% endif %}
+                        {% else %}—{% endif %}
+                    </td>
+                    <td style="color:var(--color-primary); font-weight:var(--font-weight-bold);">NT${{ "%.0f"|format(order.final_price) }}</td>
+                    <td><span class="badge {% if order.status == 'Delivered' %}active{% elif order.status == 'Cancelled' %}inactive{% else %}{% endif %}">{{ order.status }}</span></td>
+                </tr>
+                <tr class="order-detail-row" id="order-detail-{{ order.id }}">
+                    <td colspan="5">
+                        <div class="order-detail-wrapper">
+                            <table class="order-items-table">
+                                <thead>
+                                    <tr>
+                                        <th>商品名稱</th>
+                                        <th>數量</th>
+                                        <th>單價</th>
+                                        <th>小計</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in (order.items or []) %}
+                                    <tr>
+                                        <td>{{ item.set_name }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>NT${{ "%.0f"|format(item.unit_price) }}</td>
+                                        <td>NT${{ "%.0f"|format(item.subtotal) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" class="total-label">總計</td>
+                                        <td class="total-amount">NT${{ "%.0f"|format(order.final_price) }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-orders">尚無訂單紀錄</p>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleOrder(orderId) {
+    document.querySelectorAll('.order-detail-row').forEach(row => {
+        if (row.id !== 'order-detail-' + orderId) {
+            row.classList.remove('open');
+            row.previousElementSibling.classList.remove('open');
+        }
+    });
+    const detailRow = document.getElementById('order-detail-' + orderId);
+    const mainRow = detailRow.previousElementSibling;
+    detailRow.classList.toggle('open');
+    mainRow.classList.toggle('open');
+}
+</script>
+{% endblock %}
