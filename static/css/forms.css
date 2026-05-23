@@ -327,22 +327,55 @@ input[type="radio"] {
 
 /* ── Responsive: mobile < 768px ── */
 @media (max-width: 767px) {
+    .filter-panel,
+    .filter-section {
+        padding: var(--spacing-md);
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    .filter-form {
+        width: 100%;
+    }
+
     .filter-groups,
     .filter-grid {
         flex-direction: column;
         align-items: stretch;
         gap: var(--spacing-md);
+        width: 100%;
     }
 
     .filter-group {
         flex: none;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     /* 種類 radio buttons — vertical on mobile */
     .filter-radios {
         flex-direction: column;
         gap: var(--spacing-sm);
+    }
+
+    /* Price inputs must be allowed to shrink */
+    .price-range .filter-input,
+    .filter-price-row .filter-input {
+        min-width: 0;
+        width: 0;        /* let flex: 1 size it; avoids input intrinsic-width overflow */
+    }
+
+    /* Buttons fill available width on mobile */
+    .filter-buttons,
+    .filter-actions {
+        width: 100%;
+    }
+
+    .filter-buttons .btn,
+    .filter-actions .btn {
+        flex: 1 1 auto;
     }
 }
 
