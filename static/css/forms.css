@@ -240,6 +240,7 @@ input[type="radio"] {
 /* Each filter group — equal width */
 .filter-group {
     flex: 1 1 200px;
+    min-width: 0;           /* fieldset default min-width:min-content causes overflow */
     border: 1px solid var(--color-secondary);
     border-radius: var(--border-radius-md);
     background-color: var(--color-dark-secondary);
@@ -323,11 +324,13 @@ input[type="radio"] {
     .filter-form,
     .filter-grid {
         flex-direction: column;
+        align-items: stretch;   /* override flex-start so groups fill full width */
         gap: var(--spacing-md);
     }
 
     .filter-group {
-        flex: 1 1 100%;
+        flex: none;
+        width: 100%;
     }
 
     /* 種類 radio buttons — vertical on mobile */
