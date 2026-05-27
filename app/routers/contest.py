@@ -75,9 +75,9 @@ async def contest_list(
     contests = valid_contests[start:start + 12]
 
     return templates.TemplateResponse(
-        "contest_list.html",
-        {
-            "request": request,
+        request=request,
+        name="contest_list.html",
+        context={
             "contests": contests,
             "page": page,
             "total_pages": (total + 11) // 12,
@@ -95,16 +95,16 @@ async def contest_detail(
 ):
     contest = db.query(Contest).filter(Contest.id == id).first()
     if not contest:
-        return templates.TemplateResponse("404.html", {"request": request})
+        return templates.TemplateResponse(request=request, name="404.html", context={})
 
     now = _now()
     contest.can_register = _can_register(contest, now)
     is_registration_closed = not contest.can_register
 
     return templates.TemplateResponse(
-        "contest_detail.html",
-        {
-            "request": request,
+        request=request,
+        name="contest_detail.html",
+        context={
             "contest": contest,
             "user": current_user,
             "is_registration_closed": is_registration_closed,

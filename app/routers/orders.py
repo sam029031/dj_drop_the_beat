@@ -16,5 +16,5 @@ templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent.parent
 async def order_success(request: Request, order_id: int = 0, db: Session = Depends(get_db), user=Depends(get_optional_current_user)):
     order = db.query(Order).filter(Order.id == order_id).first() if order_id else None
     if not order:
-        return templates.TemplateResponse("404.html", {"request": request, "user": user}, status_code=404)
-    return templates.TemplateResponse("order_success.html", {"request": request, "user": user, "order": order})
+        return templates.TemplateResponse(request=request, name="404.html", context={"user": user}, status_code=404)
+    return templates.TemplateResponse(request=request, name="order_success.html", context={"user": user, "order": order})

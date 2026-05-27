@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent.parent
 async def login_page(request: Request, next: str = "/", user=Depends(get_optional_current_user)):
     if user:
         return RedirectResponse(url=next or "/", status_code=303)
-    return templates.TemplateResponse("login.html", {"request": request, "next": next, "user": user})
+    return templates.TemplateResponse(request=request, name="login.html", context={"next": next, "user": user})
 
 @router.post("/login")
 @router.post("/auth/login")
@@ -45,9 +45,10 @@ async def login_submit(
         )
         return redirect
     except ValueError as exc:
-        return templates.TemplateResponse(
-            "login.html",
-            {"request": request, "error": str(exc), "next": next, "user": None},
+         return templates.TemplateResponse(
+            request=request,
+            name="login.html",
+            context={"error": str(exc), "next": next, "user": None},
             status_code=400
         )
 
@@ -56,7 +57,7 @@ async def login_submit(
 async def register_page(request: Request, user=Depends(get_optional_current_user)):
     if user:
         return RedirectResponse(url="/", status_code=303)
-    return templates.TemplateResponse("register.html", {"request": request, "user": user})
+    return templates.TemplateResponse(request=request, name="register.html", context={"user": user})
 
 @router.post("/register")
 @router.post("/auth/register")
@@ -95,8 +96,9 @@ async def register_submit(
         return redirect
     except Exception as exc:
         return templates.TemplateResponse(
-            "register.html",
-            {"request": request, "error": str(exc), "user": None},
+            request=request,
+            name="register.html",
+            context={"error": str(exc), "user": None},
             status_code=400
         )
 
@@ -112,7 +114,7 @@ async def profile_page(request: Request, db: Session = Depends(get_db), user=Dep
     if not user:
         return RedirectResponse(url="/login?next=/profile", status_code=303)
     orders = db.query(Order).filter(Order.user_id == user.id).order_by(Order.created_at.desc()).all()
-    return templates.TemplateResponse("profile.html", {"request": request, "user": user, "orders": orders})
+    return templates.TemplateResponse(request=request, name="profile.html", context={"user": user, "orders": orders})
 
 @router.post("/api/login")
 async def api_login(payload: dict, response: Response, db: Session = Depends(get_db)):

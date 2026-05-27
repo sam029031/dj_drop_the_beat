@@ -24,11 +24,10 @@ async def detail_page(
 ):
     product = ProductService.get_product(db, instrument, id)
     if not product:
-        return templates.TemplateResponse("404.html", {"request": request, "user": user}, status_code=404)
+        return templates.TemplateResponse(request=request, name="404.html", context={"user": user}, status_code=404)
 
     preorder_sets = db.query(PreorderSet).filter(PreorderSet.is_active == True).order_by(PreorderSet.sort_order.asc(), PreorderSet.id.asc()).all()
-    return templates.TemplateResponse("detail.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="detail.html", context={
         "user": user,
         "instrument": instrument,
         "product": product,

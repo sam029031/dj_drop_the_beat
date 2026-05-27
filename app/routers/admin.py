@@ -64,7 +64,7 @@ async def admin_dashboard(request: Request, current_user: User = Depends(require
         "courses": db.query(Course).count(),
         "contests": db.query(Contest).count(),
     }
-    return templates.TemplateResponse("admin.html", {"request": request, "user": current_user, "stats": stats})
+    return templates.TemplateResponse(request=request, name="admin.html", context={"user": current_user, "stats": stats})
 
 # ============ 商品 ============
 
@@ -72,8 +72,7 @@ async def admin_dashboard(request: Request, current_user: User = Depends(require
 async def admin_products(request: Request, instrument: str = "ddj", current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     model = PRODUCT_MODELS.get(instrument, DDJ)
     products = db.query(model).order_by(model.id.desc()).all()
-    return templates.TemplateResponse("admin_products.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="admin_products.html", context={
         "user": current_user,
         "instrument": instrument,
         "products": products,
@@ -119,7 +118,7 @@ async def admin_product_delete(instrument: str, product_id: int, current_user: U
 @router.get("/orders", response_class=HTMLResponse)
 async def admin_orders(request: Request, current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     orders = db.query(Order).order_by(Order.created_at.desc()).all()
-    return templates.TemplateResponse("admin_orders.html", {"request": request, "user": current_user, "orders": orders})
+    return templates.TemplateResponse(request=request, name="admin_orders.html", context={"user": current_user, "orders": orders})
 
 @router.get("/orders/{order_id}")
 async def admin_order_detail(order_id: int, current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
@@ -150,7 +149,7 @@ async def admin_order_status(order_id: int, status: str = Form(...), current_use
 @router.get("/courses", response_class=HTMLResponse)
 async def admin_courses(request: Request, current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     courses = db.query(Course).order_by(Course.created_at.desc()).all()
-    return templates.TemplateResponse("admin_courses.html", {"request": request, "user": current_user, "courses": courses})
+    return templates.TemplateResponse(request=request, name="admin_courses.html", context={"user": current_user, "courses": courses})
 
 @router.post("/courses/{course_id}/edit")
 async def admin_course_edit(
@@ -209,8 +208,7 @@ async def admin_course_registrations(request: Request, course_id: int, current_u
     if not course:
         raise HTTPException(404)
     regs = db.query(CourseRegistration).filter(CourseRegistration.course_id == course_id).order_by(CourseRegistration.registered_at.desc()).all()
-    return templates.TemplateResponse("admin_course_registrations.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="admin_course_registrations.html", context={
         "user": current_user,
         "course": course,
         "registrations": regs,
@@ -229,7 +227,7 @@ async def admin_course_registration_delete(course_id: int, reg_id: int, current_
 @router.get("/contests", response_class=HTMLResponse)
 async def admin_contests(request: Request, current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     contests = db.query(Contest).order_by(Contest.event_date.desc()).all()
-    return templates.TemplateResponse("admin_contests.html", {"request": request, "user": current_user, "contests": contests})
+    return templates.TemplateResponse(request=request, name="admin_contests.html", context={"user": current_user, "contests": contests})
 
 @router.post("/contests/{contest_id}/edit")
 async def admin_contest_edit(
@@ -286,8 +284,7 @@ async def admin_contest_registrations(request: Request, contest_id: int, current
     if not contest:
         raise HTTPException(404)
     regs = db.query(ContestRegistration).filter(ContestRegistration.contest_id == contest_id).order_by(ContestRegistration.registered_at.desc()).all()
-    return templates.TemplateResponse("admin_contest_registrations.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="admin_contest_registrations.html", context={
         "user": current_user,
         "contest": contest,
         "registrations": regs,

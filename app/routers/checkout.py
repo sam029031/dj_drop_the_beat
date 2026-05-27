@@ -21,7 +21,7 @@ async def checkout_page(request: Request, db: Session = Depends(get_db), user=De
     cart_view = CartService.get_cart_view(db, user.id)
     if not cart_view["items"]:
         return RedirectResponse(url="/cart", status_code=303)
-    return templates.TemplateResponse("checkout.html", {"request": request, "user": user, **cart_view})
+    return templates.TemplateResponse(request=request, name="checkout.html", context={"user": user, **cart_view})
 
 @router.post("")
 @router.post("/")
@@ -51,7 +51,9 @@ async def checkout_submit(
     except ValueError as exc:
         cart_view = CartService.get_cart_view(db, user.id)
         return templates.TemplateResponse(
-            "checkout.html",
-            {"request": request, "user": user, "error": str(exc), **cart_view},
+            request=request,
+            name="checkout.html",
+            context={"user": user, "error": str(exc), **cart_view},
             status_code=400
+
         )

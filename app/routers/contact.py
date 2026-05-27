@@ -16,8 +16,7 @@ templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent.parent
 @router.get("", response_class=HTMLResponse)
 @router.get("/", response_class=HTMLResponse)
 async def contact_page(request: Request, success: str = "", user=Depends(get_optional_current_user)):
-    return templates.TemplateResponse("contact.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="contact.html", context={
         "user": user,
         "success": success,
         "contact_email": settings.CONTACT_EMAIL,

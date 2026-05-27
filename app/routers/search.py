@@ -39,8 +39,7 @@ async def search_page(
     )
     total = len(results)
     page_results = results[(page - 1) * 12: page * 12]
-    return templates.TemplateResponse("search.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="search.html", context={
         "user": user,
         "q": q,
         "instrument": instrument,

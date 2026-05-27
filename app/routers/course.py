@@ -51,9 +51,9 @@ async def course_list(
     courses = courses_all[start:start + 12]
 
     return templates.TemplateResponse(
-        "course_list.html",
-        {
-            "request": request,
+        request=request,
+        name="course_list.html",
+        context={
             "courses": courses,
             "page": page,
             "total_pages": (total + 11) // 12,
@@ -72,12 +72,12 @@ async def course_detail(
 ):
     course = db.query(Course).filter(Course.id == id).first()
     if not course:
-        return templates.TemplateResponse("404.html", {"request": request})
+        return templates.TemplateResponse(request=request, name="404.html", context={})
 
     return templates.TemplateResponse(
-        "course_detail.html",
-        {
-            "request": request,
+        request=request,
+        name="course_detail.html",
+        context={
             "course": course,
             "user": current_user,
             "error": request.query_params.get("error"),

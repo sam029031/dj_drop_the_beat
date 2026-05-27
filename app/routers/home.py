@@ -23,12 +23,23 @@ async def get_home(request: Request, db: Session = Depends(get_db), user=Depends
     for model, instrument in [(DDJ, "ddj"), (Audio, "audio"), (Wire, "wire"), (Music, "music")]:
         rows = db.query(model).order_by(model.id.asc()).limit(2).all()
         latest_products.extend([(row, instrument) for row in rows])
+    #Jinja2 版本較新
     return templates.TemplateResponse(
-        "home.html",
-        {
-            "request": request,
-            "user": user,
-            "preorder_sets": preorder_sets,
-            "latest_products": latest_products,
-        }
-    )
+    request=request,
+    name="home.html",
+    context={
+        "user": user,
+        "preorder_sets": preorder_sets,
+        "latest_products": latest_products,
+    }
+)
+
+#return templates.TemplateResponse(
+       # "home.html",
+      #  {
+            #"request": request,
+            #"user": user,
+            #"preorder_sets": preorder_sets,
+            #"latest_products": latest_products,
+        #}
+  # )

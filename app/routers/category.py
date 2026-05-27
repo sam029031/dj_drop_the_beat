@@ -40,8 +40,7 @@ async def category_page(
 
     total = query.count()
     products = query.order_by(model.id.asc()).offset((page - 1) * 12).limit(12).all()
-    return templates.TemplateResponse("category.html", {
-        "request": request,
+    return templates.TemplateResponse(request=request, name="category.html", context={
         "user": user,
         "instrument": instrument,
         "products": products,
