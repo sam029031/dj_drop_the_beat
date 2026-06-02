@@ -222,6 +222,12 @@
 }
 
 /* ============ 狀態徽章 ============ */
+.badge.status-pending {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning);
+}
+
 .badge.status-pending_payment {
     background-color: rgba(255, 193, 7, 0.2);
     color: var(--color-warning);
@@ -361,6 +367,114 @@
     margin-top: var(--spacing-lg);
     display: flex;
     justify-content: flex-end;
+}
+
+/* ============ 訂單明細 Modal ============ */
+.order-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: var(--z-modal-backdrop);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+.order-modal-box {
+    background-color: var(--color-dark-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    width: 100%;
+    max-width: 560px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: var(--z-modal);
+}
+
+.order-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    background-color: var(--color-dark-secondary);
+}
+
+.order-modal-header h3 {
+    color: var(--color-primary);
+    margin: 0;
+}
+
+.order-modal-close {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 var(--spacing-xs);
+}
+
+.order-modal-close:hover {
+    color: var(--color-primary);
+}
+
+.order-modal-content {
+    padding: var(--spacing-lg);
+}
+
+.receipt-info {
+    margin-bottom: var(--spacing-lg);
+}
+
+.receipt-info p {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid var(--color-dark-tertiary);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.receipt-info p strong {
+    color: var(--color-light);
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+}
+
+.receipt-table th {
+    text-align: left;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-secondary);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: var(--font-weight-bold);
+}
+
+.receipt-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-light);
+    border-bottom: 1px solid var(--color-dark-tertiary);
+}
+
+.receipt-total {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0 0;
+    border-top: 2px solid var(--color-primary);
+    color: var(--color-text-secondary);
+}
+
+.receipt-total strong {
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
 }
 
 /* ============ 徽章 (active/inactive) ============ */

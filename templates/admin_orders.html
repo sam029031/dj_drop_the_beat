@@ -49,6 +49,7 @@
                         <td>
                             <span class="badge status-{{ order.status | lower }}">
                                 {% if order.status == 'Pending' %}待付款
+                                {% elif order.status == 'Confirmed' %}已確認
                                 {% elif order.status == 'Paid' %}已付款
                                 {% elif order.status == 'Processing' %}處理中
                                 {% elif order.status == 'Shipped' %}已出貨
@@ -76,6 +77,17 @@
     </div>
 </section>
 {% endblock %}
+
+<!-- 訂單明細 Modal -->
+<div id="orderModal" class="order-modal-overlay" style="display:none" onclick="closeOrderModal(event)">
+    <div class="order-modal-box">
+        <div class="order-modal-header">
+            <h3>訂單明細</h3>
+            <button class="order-modal-close" onclick="closeOrderModal()">&#10005;</button>
+        </div>
+        <div id="orderModalContent" class="order-modal-content"></div>
+    </div>
+</div>
 
 {% block scripts %}
 <script src="/static/js/admin.js"></script>
