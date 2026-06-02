@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}訂單 {{ order.order_number }} - 管理後台{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="admin-container">
+        <!-- 側邊欄 -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <h3>管理後台</h3>
+                <p class="admin-user">{{ user.username }}</p>
+            </div>
+            <nav class="admin-nav">
+                <a href="/admin" class="admin-nav-item">📊 儀表板</a>
+                <a href="/admin/products" class="admin-nav-item">📦 商品管理</a>
+                <a href="/admin/orders" class="admin-nav-item active">📋 訂單管理</a>
+                <a href="/admin/courses" class="admin-nav-item">📚 課程管理</a>
+                <a href="/admin/contests" class="admin-nav-item">🎤 比賽管理</a>
+                <a href="/auth/logout" class="admin-nav-item logout">🚪 登出</a>
+            </nav>
+        </aside>
+
+        <!-- 主內容 -->
+        <main class="admin-main">
+            <a href="/admin/orders" class="back-link">← 返回訂單列表</a>
+            <h1>訂單明細</h1>
+
+            <!-- 訂購人資訊 -->
+            <div class="detail-card">
+                <h2 class="detail-card-title">訂購資訊</h2>
+                <div class="detail-grid">
+                    <div class="detail-row">
+                        <span class="detail-label">訂單編號</span>
+                        <span class="detail-value">{{ order.order_number }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">狀態</span>
+                        <span class="badge status-{{ order.status | lower }}">
+                            {% if order.status == 'Pending' %}待付款
+                            {% elif order.status == 'Confirmed' %}已確認
+                            {% elif order.status == 'Paid' %}已付款
+                            {% elif order.status == 'Processing' %}處理中
+                            {% elif order.status == 'Shipped' %}已出貨
+                            {% elif order.status == 'Delivered' %}已送達
+                            {% elif order.status == 'Cancelled' %}已取消
+                            {% elif order.status == 'Refunded' %}已退款
+                            {% else %}{{ order.status }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">訂購人</span>
+                        <span class="detail-value">{{ order.buyer_name }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">電子郵件</span>
+                        <span class="detail-value">{{ order.buyer_email }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">電話</span>
+                        <span class="detail-value">{{ order.buyer_phone }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">收件地址</span>
+                        <span class="detail-value">{{ order.buyer_address }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">付款方式</span>
+                        <span class="detail-value">{{ order.payment_method or '-' }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">訂購日期</span>
+                        <span class="detail-value">{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                    </div>
+                    {% if order.notes %}
+                    <div class="detail-row">
+                        <span class="detail-label">備註</span>
+                        <span class="detail-value">{{ order.notes }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- 商品明細 -->
+            <div class="detail-card">
+                <h2 class="detail-card-title">商品明細</h2>
+                {% if order.items %}
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>商品名稱</th>
+                            <th>數量</th>
+                            <th>單價</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items %}
+                        <tr>
+                            <td>{{ item.set_name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>NT${{ "%.0f"|format(item.unit_price) }}</td>
+                            <td>NT${{ "%.0f"|format(item.subtotal) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="no-data">無商品資料</p>
+                {% endif %}
+
+                <div class="detail-total">
+                    <span>總金額</span>
+                    <strong>NT${{ "%.0f"|format(order.final_price) }}</strong>
+                </div>
+            </div>
+
+            <!-- 更新狀態 -->
+            <div class="detail-card">
+                <h2 class="detail-card-title">更新狀態</h2>
+                <form method="POST" action="/admin/orders/{{ order.id }}/status" class="status-update-form">
+                    <select name="status" class="status-select">
+                        <option value="Pending"    {% if order.status == 'Pending' %}selected{% endif %}>待付款</option>
+                        <option value="Confirmed"  {% if order.status == 'Confirmed' %}selected{% endif %}>已確認</option>
+                        <option value="Paid"       {% if order.status == 'Paid' %}selected{% endif %}>已付款</option>
+                        <option value="Processing" {% if order.status == 'Processing' %}selected{% endif %}>處理中</option>
+                        <option value="Shipped"    {% if order.status == 'Shipped' %}selected{% endif %}>已出貨</option>
+                        <option value="Delivered"  {% if order.status == 'Delivered' %}selected{% endif %}>已送達</option>
+                        <option value="Cancelled"  {% if order.status == 'Cancelled' %}selected{% endif %}>已取消</option>
+                        <option value="Refunded"   {% if order.status == 'Refunded' %}selected{% endif %}>已退款</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">更新</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}

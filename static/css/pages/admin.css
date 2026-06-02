@@ -369,6 +369,84 @@
     justify-content: flex-end;
 }
 
+/* ============ 訂單明細頁 ============ */
+.detail-card {
+    background-color: var(--color-dark-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.detail-card-title {
+    color: var(--color-secondary);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid var(--color-dark-secondary);
+}
+
+.detail-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    min-width: 100px;
+}
+
+.detail-value {
+    color: var(--color-light);
+    text-align: right;
+    flex: 1;
+    padding-left: var(--spacing-md);
+}
+
+.detail-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-md) 0;
+    border-top: 2px solid var(--color-primary);
+    margin-top: var(--spacing-md);
+}
+
+.detail-total span {
+    color: var(--color-text-secondary);
+}
+
+.detail-total strong {
+    color: var(--color-primary);
+    font-size: var(--font-size-xl);
+}
+
+.status-update-form {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.status-select {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    min-width: 160px;
+}
+
 /* ============ 訂單明細 Modal ============ */
 .order-modal-overlay {
     position: fixed;

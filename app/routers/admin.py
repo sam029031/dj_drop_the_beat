@@ -121,29 +121,25 @@ async def admin_orders(request: Request, current_user: User = Depends(require_ad
     orders = db.query(Order).order_by(Order.created_at.desc()).all()
     return templates.TemplateResponse("admin_orders.html", {"request": request, "user": current_user, "orders": orders})
 
-@router.get("/orders/{order_id}")
-async def admin_order_detail(order_id: int, current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
+@router.get("/orders/{order_id}", response_class=HTMLResponse)
+async def admin_order_detail(request: Request, order_id: int, current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     order = db.query(Order).filter(Order.id == order_id).first()
     if not order:
         raise HTTPException(404)
-    return {
-        "id": order.id,
-        "order_number": order.order_number,
-        "buyer_name": order.buyer_name,
-        "buyer_email": order.buyer_email,
-        "buyer_phone": order.buyer_phone,
-        "final_price": order.final_price,
-        "status": order.status,
-        "items": order.items,
-    }
+    return templates.TemplateResponse("admin_order_detail.html", {
+        "request": request,
+        "user": current_user,
+        "order": order,
+    })
 
 @router.post("/orders/{order_id}/status")
-async def admin_order_status(order_id: int, status: str = Form(...), current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
+async def admin_order_status(request: Request, order_id: int, status: str = Form(...), current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     order = db.query(Order).filter(Order.id == order_id).first()
     if order:
         order.status = status
         db.commit()
-    return RedirectResponse(url="/admin/orders", status_code=303)
+    referer = request.headers.get("referer", "/admin/orders")
+    return RedirectResponse(url=referer, status_code=303)
 
 # ============ 課程 ============
 

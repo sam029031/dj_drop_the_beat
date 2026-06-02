@@ -63,7 +63,7 @@
                         <td>{{ order.payment_method }}</td>
                         <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
                         <td>
-                            <button class="btn btn-sm btn-secondary" onclick="viewOrderDetails({{ order.id }})">檢視</button>
+                            <a href="/admin/orders/{{ order.id }}" class="btn btn-sm btn-secondary">檢視</a>
                             <button class="btn btn-sm btn-primary" onclick="updateOrderStatus({{ order.id }})">更新狀態</button>
                         </td>
                     </tr>
@@ -78,16 +78,6 @@
 </section>
 {% endblock %}
 
-<!-- 訂單明細 Modal -->
-<div id="orderModal" class="order-modal-overlay" style="display:none" onclick="closeOrderModal(event)">
-    <div class="order-modal-box">
-        <div class="order-modal-header">
-            <h3>訂單明細</h3>
-            <button class="order-modal-close" onclick="closeOrderModal()">&#10005;</button>
-        </div>
-        <div id="orderModalContent" class="order-modal-content"></div>
-    </div>
-</div>
 
 {% block scripts %}
 <script src="/static/js/admin.js"></script>
