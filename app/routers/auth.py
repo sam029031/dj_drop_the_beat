@@ -8,6 +8,8 @@ from pathlib import Path
 from app.core.database import get_db
 from app.core.dependencies import get_optional_current_user
 from app.models.order import Order
+from app.models.course import CourseRegistration, Course
+from app.models.contest import ContestRegistration, Contest
 from app.services.auth_service import AuthService
 from app.schemas.auth import UserRegister
 
@@ -112,7 +114,27 @@ async def profile_page(request: Request, db: Session = Depends(get_db), user=Dep
     if not user:
         return RedirectResponse(url="/login?next=/profile", status_code=303)
     orders = db.query(Order).filter(Order.user_id == user.id).order_by(Order.created_at.desc()).all()
-    return templates.TemplateResponse("profile.html", {"request": request, "user": user, "orders": orders})
+    course_regs = (
+        db.query(CourseRegistration, Course)
+        .join(Course, CourseRegistration.course_id == Course.id)
+        .filter(CourseRegistration.user_id == user.id)
+        .order_by(CourseRegistration.registered_at.desc())
+        .all()
+    )
+    contest_regs = (
+        db.query(ContestRegistration, Contest)
+        .join(Contest, ContestRegistration.contest_id == Contest.id)
+        .filter(ContestRegistration.user_id == user.id)
+        .order_by(ContestRegistration.registered_at.desc())
+        .all()
+    )
+    return templates.TemplateResponse("profile.html", {
+        "request": request,
+        "user": user,
+        "orders": orders,
+        "course_regs": course_regs,
+        "contest_regs": contest_regs,
+    })
 
 @router.post("/api/login")
 async def api_login(payload: dict, response: Response, db: Session = Depends(get_db)):

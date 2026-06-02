@@ -144,6 +144,11 @@
     padding: var(--spacing-2xl);
     color: var(--color-text-secondary);
 }
+
+.section-title {
+    margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-lg);
+}
 </style>
 {% endblock %}
 
@@ -222,6 +227,64 @@
         </table>
         {% else %}
         <p class="no-orders">尚無訂單紀錄</p>
+        {% endif %}
+
+        <!-- 課程報名紀錄 -->
+        <h2 class="section-title">課程報名紀錄</h2>
+        {% if course_regs %}
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>報名編號</th>
+                    <th>課程名稱</th>
+                    <th>開始日期</th>
+                    <th>費用</th>
+                    <th>狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reg, course in course_regs %}
+                <tr>
+                    <td>{{ reg.registration_number }}</td>
+                    <td>{{ course.title }}</td>
+                    <td>{{ course.start_date.strftime('%Y-%m-%d') if course.start_date else '—' }}</td>
+                    <td style="color:var(--color-primary); font-weight:var(--font-weight-bold);">NT${{ "%.0f"|format(course.price) }}</td>
+                    <td><span class="badge {% if reg.status == 'Active' %}active{% elif reg.status == 'Cancelled' %}inactive{% endif %}">{{ reg.status }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-orders">尚無課程報名紀錄</p>
+        {% endif %}
+
+        <!-- 比賽報名紀錄 -->
+        <h2 class="section-title">比賽報名紀錄</h2>
+        {% if contest_regs %}
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>報名編號</th>
+                    <th>比賽名稱</th>
+                    <th>比賽日期</th>
+                    <th>報名費</th>
+                    <th>狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reg, contest in contest_regs %}
+                <tr>
+                    <td>{{ reg.registration_number }}</td>
+                    <td>{{ contest.title }}</td>
+                    <td>{{ contest.event_date.strftime('%Y-%m-%d') if contest.event_date else '—' }}</td>
+                    <td style="color:var(--color-primary); font-weight:var(--font-weight-bold);">NT${{ "%.0f"|format(contest.entry_fee) }}</td>
+                    <td><span class="badge {% if reg.status == 'Registered' %}active{% elif reg.status == 'Cancelled' %}inactive{% endif %}">{{ reg.status }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-orders">尚無比賽報名紀錄</p>
         {% endif %}
 
     </div>
