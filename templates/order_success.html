@@ -49,7 +49,7 @@
                     <tbody>
                         {% for item in order.items %}
                         <tr>
-                            <td>{{ item.preorder_set.name }}</td>
+                            <td>{{ item.set_name }}</td>
                             <td>{{ item.quantity }}</td>
                             <td>NT${{ "%.0f"|format(item.unit_price) }}</td>
                             <td>NT${{ "%.0f"|format(item.subtotal) }}</td>
@@ -60,7 +60,7 @@
                 
                 <div class="order-total">
                     <span class="label">總計：</span>
-                    <span class="amount">NT${{ "%.0f"|format(order.total_amount) }}</span>
+                    <span class="amount">NT${{ "%.0f"|format(order.final_price) }}</span>
                 </div>
             </div>
             

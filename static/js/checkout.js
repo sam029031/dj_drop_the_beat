@@ -35,9 +35,6 @@ function initCheckoutForm() {
 
     // 表單提交
     form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // 驗證所有欄位
         let isValid = true;
         inputs.forEach(input => {
             if (!validateField(input)) {
@@ -45,11 +42,11 @@ function initCheckoutForm() {
             }
         });
 
-        if (isValid) {
-            submitCheckoutForm(form);
-        } else {
+        if (!isValid) {
+            e.preventDefault();
             App.utils.showNotification('⚠️ 請填寫所有必填欄位', 'warning');
         }
+        // valid → let the browser submit the form normally
     });
 }
 
@@ -98,26 +95,3 @@ function autoFillUserInfo() {
     }
 }
 
-/**
- * 提交結帳表單
- */
-async function submitCheckoutForm(form) {
-    try {
-        const formData = new FormData(form);
-
-        const response = await fetch('/checkout', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            App.utils.showNotification('✅ 訂單已成功提交', 'success');
-            window.location.href = response.url;
-        } else {
-            App.utils.showNotification('❌ 提交失敗，請稍後重試', 'error');
-        }
-    } catch (error) {
-        console.error('結帳錯誤:', error);
-        App.utils.showNotification('❌ 發生錯誤，請稍後重試', 'error');
-    }
-}

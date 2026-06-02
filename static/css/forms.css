@@ -323,13 +323,14 @@ input[type="radio"] {
     flex-shrink: 0;
 }
 
-/* Filter action buttons — always side by side */
+/* Filter action buttons — always side by side, right-aligned on desktop */
 .filter-buttons,
 .filter-actions {
     display: flex;
     flex-direction: row;
     gap: var(--spacing-md);
     flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 /* ── Responsive: mobile < 768px ── */
