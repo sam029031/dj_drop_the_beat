@@ -45,14 +45,17 @@
                     <tr>
                         <td>{{ order.order_number }}</td>
                         <td>{{ order.buyer_name }}</td>
-                        <td>NT${{ "%.0f"|format(order.total_amount) }}</td>
+                        <td>NT${{ "%.0f"|format(order.final_price) }}</td>
                         <td>
-                            <span class="badge status-{{ order.status }}">
-                                {% if order.status == 'pending_payment' %}待付款
-                                {% elif order.status == 'confirmed' %}已確認
-                                {% elif order.status == 'shipped' %}已出貨
-                                {% elif order.status == 'delivered' %}已送達
-                                {% elif order.status == 'cancelled' %}已取消
+                            <span class="badge status-{{ order.status | lower }}">
+                                {% if order.status == 'Pending' %}待付款
+                                {% elif order.status == 'Paid' %}已付款
+                                {% elif order.status == 'Processing' %}處理中
+                                {% elif order.status == 'Shipped' %}已出貨
+                                {% elif order.status == 'Delivered' %}已送達
+                                {% elif order.status == 'Cancelled' %}已取消
+                                {% elif order.status == 'Refunded' %}已退款
+                                {% else %}{{ order.status }}
                                 {% endif %}
                             </span>
                         </td>
