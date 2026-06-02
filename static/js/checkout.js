@@ -104,23 +104,17 @@ function autoFillUserInfo() {
 async function submitCheckoutForm(form) {
     try {
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
 
         const response = await fetch('/checkout', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body: formData
         });
 
         if (response.ok) {
-            const result = await response.json();
             App.utils.showNotification('✅ 訂單已成功提交', 'success');
-            window.location.href = `/order-success?order_id=${result.order_id}`;
+            window.location.href = response.url;
         } else {
-            const error = await response.json();
-            App.utils.showNotification(`❌ ${error.detail || '提交失敗'}`, 'error');
+            App.utils.showNotification('❌ 提交失敗，請稍後重試', 'error');
         }
     } catch (error) {
         console.error('結帳錯誤:', error);
