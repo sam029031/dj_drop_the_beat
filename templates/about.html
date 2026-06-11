@@ -4,10 +4,20 @@
 
 {% block content %}
 <style>
+    body {
+        background: #1a1a1a;
+    }
+
+    main#main-content {
+        background: #1a1a1a;
+    }
+
     .about-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 40px 20px;
+        background: #1a1a1a;
+        color: #e0e0e0;
     }
 
     .about-hero {
@@ -38,7 +48,7 @@
 
     .about-section h2 {
         font-size: 2em;
-        color: #333;
+        color: #a8d8ff;
         margin-bottom: 25px;
         padding-bottom: 10px;
         border-bottom: 3px solid #667eea;
@@ -47,7 +57,7 @@
 
     .about-section h3 {
         font-size: 1.4em;
-        color: #555;
+        color: #c9d9ff;
         margin-top: 25px;
         margin-bottom: 15px;
     }
@@ -55,7 +65,7 @@
     .about-section p {
         font-size: 1.05em;
         line-height: 1.8;
-        color: #666;
+        color: #d0d0d0;
         margin-bottom: 15px;
     }
 
@@ -67,32 +77,34 @@
     .about-section li {
         font-size: 1.05em;
         line-height: 1.8;
-        color: #666;
+        color: #d0d0d0;
         margin-bottom: 10px;
     }
 
     .pain-point {
-        background: #f8f9fa;
+        background: #2d2d2d;
         padding: 15px 20px;
         margin: 10px 0;
         border-left: 4px solid #667eea;
         border-radius: 5px;
+        color: #d0d0d0;
     }
 
     .pain-point strong {
-        color: #667eea;
+        color: #90caf9;
     }
 
     .requirement-box {
-        background: #f0f4ff;
+        background: #2a2d3a;
         padding: 20px;
         margin: 15px 0;
         border-radius: 8px;
         border-left: 4px solid #764ba2;
+        color: #d0d0d0;
     }
 
     .requirement-box h4 {
-        color: #764ba2;
+        color: #b39ddb;
         margin-top: 0;
     }
 
@@ -104,22 +116,23 @@
     }
 
     .feature-card {
-        background: white;
-        border: 2px solid #e0e0e0;
+        background: #2d2d2d;
+        border: 2px solid #3a3a3a;
         border-radius: 10px;
         padding: 25px;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        color: #d0d0d0;
     }
 
     .feature-card:hover {
         border-color: #667eea;
-        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
         transform: translateY(-5px);
     }
 
     .feature-card h4 {
-        color: #667eea;
+        color: #90caf9;
         font-size: 1.2em;
         margin-bottom: 10px;
     }
@@ -127,13 +140,14 @@
     .feature-card p {
         margin: 0;
         font-size: 0.95em;
+        color: #b0b0b0;
     }
 
     .page-structure-table {
         width: 100%;
         border-collapse: collapse;
         margin: 20px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .page-structure-table th {
@@ -146,19 +160,21 @@
 
     .page-structure-table td {
         padding: 12px 15px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid #3a3a3a;
+        color: #d0d0d0;
     }
 
     .page-structure-table tr:hover {
-        background: #f8f9fa;
+        background: #2a2a2a;
     }
 
     .interaction-flow {
-        background: #f9f9f9;
+        background: #2d2d2d;
         border: 2px dashed #667eea;
         border-radius: 8px;
         padding: 20px;
         margin: 20px 0;
+        color: #d0d0d0;
     }
 
     .flow-item {
@@ -169,7 +185,7 @@
 
     .flow-item::before {
         content: "→";
-        color: #667eea;
+        color: #90caf9;
         font-size: 1.5em;
         font-weight: bold;
         margin-right: 15px;
@@ -181,23 +197,24 @@
     }
 
     .architecture-method {
-        background: white;
-        border: 1px solid #e0e0e0;
+        background: #2d2d2d;
+        border: 1px solid #3a3a3a;
         margin: 15px 0;
         border-radius: 8px;
         overflow: hidden;
     }
 
     .method-header {
-        background: #f0f4ff;
+        background: #2a2d3a;
         padding: 15px;
         border-left: 4px solid #667eea;
         font-weight: 600;
-        color: #333;
+        color: #90caf9;
     }
 
     .method-content {
         padding: 15px;
+        color: #d0d0d0;
     }
 
     .method-content table {
@@ -206,32 +223,35 @@
     }
 
     .method-content th {
-        background: #f8f9fa;
+        background: #1f2235;
         padding: 10px;
         text-align: left;
         font-weight: 600;
         border-bottom: 2px solid #667eea;
+        color: #90caf9;
     }
 
     .method-content td {
         padding: 10px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid #3a3a3a;
+        color: #b0b0b0;
     }
 
     .method-content tr:hover {
-        background: #f9f9f9;
+        background: #35353f;
     }
 
     .callout {
-        background: #fff3cd;
+        background: #3a3220;
         border-left: 4px solid #ffc107;
         padding: 15px;
         margin: 15px 0;
         border-radius: 5px;
+        color: #ffd54f;
     }
 
     .callout strong {
-        color: #856404;
+        color: #ffeb3b;
     }
 
     .about-cta {
@@ -269,32 +289,36 @@
     .btn-primary {
         background: white;
         color: #667eea;
+        border: 2px solid white;
     }
 
     .btn-primary:hover {
         background: #f0f4ff;
         transform: translateY(-2px);
+        color: #764ba2;
     }
 
     .btn-secondary {
-        background: rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.15);
         color: white;
-        border: 2px solid white;
+        border: 2px solid rgba(255,255,255,0.4);
     }
 
     .btn-secondary:hover {
-        background: rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.25);
         transform: translateY(-2px);
+        border-color: white;
     }
 
     .architecture-tree {
-        background: white;
-        border: 2px solid #e0e0e0;
+        background: #2d2d2d;
+        border: 2px solid #3a3a3a;
         border-radius: 10px;
         padding: 25px;
         margin: 20px 0;
         font-family: 'Courier New', monospace;
         font-size: 0.95em;
+        color: #90caf9;
     }
 
     .tree-item {
@@ -303,17 +327,17 @@
 
     .tree-label {
         padding: 10px;
-        background: linear-gradient(90deg, #f0f4ff 0%, #fff 100%);
+        background: linear-gradient(90deg, #2a2d3a 0%, #35383f 100%);
         border-left: 4px solid #667eea;
         border-radius: 5px;
         font-weight: 600;
-        color: #333;
+        color: #90caf9;
         cursor: pointer;
         transition: all 0.2s ease;
     }
 
     .tree-label:hover {
-        background: linear-gradient(90deg, #e8ecff 0%, #fff 100%);
+        background: linear-gradient(90deg, #323645 0%, #3d4048 100%);
         border-left-color: #764ba2;
         transform: translateX(5px);
     }
@@ -321,7 +345,7 @@
     .tree-children {
         margin-left: 20px;
         margin-top: 8px;
-        border-left: 2px dashed #ccc;
+        border-left: 2px dashed #3a3a3a;
         padding-left: 15px;
     }
 
@@ -333,16 +357,17 @@
     .tree-descriptions > div {
         padding: 8px 10px;
         margin: 5px 0;
-        background: #fafafa;
+        background: #35383f;
         border-radius: 4px;
-        color: #555;
+        color: #b0b0b0;
         font-size: 0.9em;
         transition: all 0.2s ease;
     }
 
     .tree-descriptions > div:hover {
-        background: #f0f4ff;
+        background: #3f4350;
         padding-left: 15px;
+        color: #d0d0d0;
     }
 
     @media (max-width: 768px) {
