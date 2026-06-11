@@ -32,3 +32,14 @@ async def get_home(request: Request, db: Session = Depends(get_db), user=Depends
             "latest_products": latest_products,
         }
     )
+
+@router.get("/about", response_class=HTMLResponse)
+async def get_about(request: Request, user=Depends(get_optional_current_user)):
+    """關於我們頁面"""
+    return templates.TemplateResponse(
+        "about.html",
+        {
+            "request": request,
+            "user": user,
+        }
+    )

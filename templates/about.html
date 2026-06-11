@@ -1,0 +1,995 @@
+{% extends "base.html" %}
+
+{% block title %}關於我們 - DJ 器材預購與入門學習平台{% endblock %}
+
+{% block content %}
+<style>
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .about-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 10px;
+        margin-bottom: 50px;
+    }
+
+    .about-hero h1 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .about-hero p {
+        font-size: 1.2em;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .about-section {
+        margin-bottom: 50px;
+    }
+
+    .about-section h2 {
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #667eea;
+        display: inline-block;
+    }
+
+    .about-section h3 {
+        font-size: 1.4em;
+        color: #555;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+    .about-section p {
+        font-size: 1.05em;
+        line-height: 1.8;
+        color: #666;
+        margin-bottom: 15px;
+    }
+
+    .about-section ul, .about-section ol {
+        margin-left: 30px;
+        margin-bottom: 15px;
+    }
+
+    .about-section li {
+        font-size: 1.05em;
+        line-height: 1.8;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .pain-point {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        margin: 10px 0;
+        border-left: 4px solid #667eea;
+        border-radius: 5px;
+    }
+
+    .pain-point strong {
+        color: #667eea;
+    }
+
+    .requirement-box {
+        background: #f0f4ff;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        border-left: 4px solid #764ba2;
+    }
+
+    .requirement-box h4 {
+        color: #764ba2;
+        margin-top: 0;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+
+    .feature-card {
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .feature-card:hover {
+        border-color: #667eea;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .feature-card h4 {
+        color: #667eea;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        margin: 0;
+        font-size: 0.95em;
+    }
+
+    .page-structure-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .page-structure-table th {
+        background: #667eea;
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .page-structure-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .page-structure-table tr:hover {
+        background: #f8f9fa;
+    }
+
+    .interaction-flow {
+        background: #f9f9f9;
+        border: 2px dashed #667eea;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    .flow-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .flow-item::before {
+        content: "→";
+        color: #667eea;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-right: 15px;
+        min-width: 20px;
+    }
+
+    .flow-item:first-child::before {
+        content: "🔹";
+    }
+
+    .architecture-method {
+        background: white;
+        border: 1px solid #e0e0e0;
+        margin: 15px 0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .method-header {
+        background: #f0f4ff;
+        padding: 15px;
+        border-left: 4px solid #667eea;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .method-content {
+        padding: 15px;
+    }
+
+    .method-content table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .method-content th {
+        background: #f8f9fa;
+        padding: 10px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid #667eea;
+    }
+
+    .method-content td {
+        padding: 10px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .method-content tr:hover {
+        background: #f9f9f9;
+    }
+
+    .callout {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
+
+    .callout strong {
+        color: #856404;
+    }
+
+    .about-cta {
+        text-align: center;
+        margin: 50px 0;
+        padding: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        color: white;
+    }
+
+    .about-cta h3 {
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .about-cta .btn-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+    }
+
+    .btn-primary {
+        background: white;
+        color: #667eea;
+    }
+
+    .btn-primary:hover {
+        background: #f0f4ff;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-2px);
+    }
+
+    .architecture-tree {
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 25px;
+        margin: 20px 0;
+        font-family: 'Courier New', monospace;
+        font-size: 0.95em;
+    }
+
+    .tree-item {
+        margin-bottom: 10px;
+    }
+
+    .tree-label {
+        padding: 10px;
+        background: linear-gradient(90deg, #f0f4ff 0%, #fff 100%);
+        border-left: 4px solid #667eea;
+        border-radius: 5px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .tree-label:hover {
+        background: linear-gradient(90deg, #e8ecff 0%, #fff 100%);
+        border-left-color: #764ba2;
+        transform: translateX(5px);
+    }
+
+    .tree-children {
+        margin-left: 20px;
+        margin-top: 8px;
+        border-left: 2px dashed #ccc;
+        padding-left: 15px;
+    }
+
+    .tree-descriptions {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .tree-descriptions > div {
+        padding: 8px 10px;
+        margin: 5px 0;
+        background: #fafafa;
+        border-radius: 4px;
+        color: #555;
+        font-size: 0.9em;
+        transition: all 0.2s ease;
+    }
+
+    .tree-descriptions > div:hover {
+        background: #f0f4ff;
+        padding-left: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .about-hero h1 {
+            font-size: 1.8em;
+        }
+
+        .about-hero p {
+            font-size: 1em;
+        }
+
+        .about-section h2 {
+            font-size: 1.5em;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .page-structure-table {
+            font-size: 0.9em;
+        }
+
+        .page-structure-table th, .page-structure-table td {
+            padding: 10px;
+        }
+
+        .about-cta .btn-group {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .architecture-tree {
+            font-size: 0.85em;
+            padding: 15px;
+        }
+
+        .tree-children {
+            margin-left: 10px;
+            padding-left: 10px;
+        }
+    }
+</style>
+
+<div class="about-container">
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1>🎛️ 關於我們</h1>
+        <p>DJ 器材預購與入門學習平台 - 為 DJ 愛好者打造的一站式解決方案</p>
+    </section>
+
+    <!-- 系統目的與發想 -->
+    <section class="about-section">
+        <h2>系統目的與發想</h2>
+        
+        <h3>系統目的</h3>
+        <p>透過 FastAPI 構建高效能、模組化的整合平台，為 DJ 愛好者提供器材租售、課程報名與賽事資訊的一站式解決方案。</p>
+
+        <h3>使用者痛點分析</h3>
+        <div class="pain-point">
+            <strong>📍 資訊較為破碎</strong><br>
+            當前 DJ 器材、課程與賽事資訊散落在不同的社群平台、網站、電商，使用者需耗費大量時間搜尋與交叉比對。
+        </div>
+        <div class="pain-point">
+            <strong>💼 管理成本高昂</strong><br>
+            主辦單位與廠商仍多透過人工表單處理報名與訂單，易發生資料錯誤或同步延遲。
+        </div>
+    </section>
+
+    <!-- 使用情境與需求 -->
+    <section class="about-section">
+        <h2>使用情境與需求</h2>
+
+        <h3>👥 一般使用者</h3>
+        <div class="requirement-box">
+            <h4>情境</h4>
+            <p>尋找特定型號的 DJ 盤或音響設備，並同時關注近期的 DJ 競賽與教學課程。</p>
+            <h4>需求</h4>
+            <p>需要清晰的商品分類目錄、直覺的購物流程、快速的賽事報名機制，且能會員資料自動帶入功能，以節省重複輸入時間。</p>
+        </div>
+
+        <h3>👨‍💼 管理員</h3>
+        <div class="requirement-box">
+            <h4>情境</h4>
+            <p>需要頻繁更新庫存商品資訊、發布最新比賽時程與課程詳情。</p>
+            <h4>需求</h4>
+            <p>一個易於操作的後台，能統一管理商品（新增/修改/刪除）、監控訂單狀況，並能一鍵匯出課程與賽事的報名者名單。</p>
+        </div>
+    </section>
+
+    <!-- 主要功能規劃 -->
+    <section class="about-section">
+        <h2>主要功能規劃</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🛍️ 商品導覽與銷售</h4>
+                <p>器材分類索引（DJ盤、音響、線材）、商品詳細頁、購物車及響應式結帳流程</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>👤 會員管理</h4>
+                <p>註冊、登入系統，整合會員資料至購物、課程與比賽報名表單</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>📚 課程與賽事報名</h4>
+                <p>包含自動化的篩選排序（按時間/難度）、報名截止自動失效</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>💬 意見反饋與合作</h4>
+                <p>獨立的聯絡表單，區分一般客戶反饋與廠商贊助申請</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>⚙️ 後台管理系統</h4>
+                <p>商品庫存與規格管理、賽事/課程內容維護、即時報名者清單查看</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁面規劃 -->
+    <section class="about-section">
+        <h2>頁面規劃</h2>
+
+        <h3>📑 頁面主要架構</h3>
+        <p>將頁面分為「公開瀏覽層」、「交易/報名層」與「管理控制層」：</p>
+        
+        <ul>
+            <li><strong>公開瀏覽層：</strong> 首頁、器材搜尋與詳情、課程介紹、比賽資訊、聯絡我們</li>
+            <li><strong>交易/報名層：</strong> 會員註冊/登入、購物車、結帳頁面（採用RWD）、個人報名紀錄</li>
+            <li><strong>管理控制層：</strong> /admin 管理儀表板（含 CRUD 控制台與報名者名單匯出）</li>
+        </ul>
+
+        <h3>🎨 頁面規劃特點</h3>
+        <table class="page-structure-table">
+            <thead>
+                <tr>
+                    <th>頁面分類</th>
+                    <th>關鍵頁面</th>
+                    <th>資訊規劃邏輯</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>導覽與展示</td>
+                    <td>課程/比賽詳情頁</td>
+                    <td>採用「資訊區塊化」設計，上方為重點導覽，下方整合互動表單，減少頁面切換</td>
+                </tr>
+                <tr>
+                    <td>互動結帳</td>
+                    <td>/checkout (RWD)</td>
+                    <td>電腦版：雙欄佈局（左：訂單與總金額/右：個人資料）。手機版：單欄流式佈局，確保重要按鈕位於拇指操作熱區</td>
+                </tr>
+                <tr>
+                    <td>管理後台</td>
+                    <td>/admin</td>
+                    <td>採用「列表檢視 + Modal 彈出式編輯」，管理員可於同一頁面切換檢視商品庫存與報名名單，無需頻繁導航</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🔄 頁面互動流程與例外處理</h3>
+        
+        <div class="interaction-flow">
+            <div class="flow-item"><strong>報名截止邏輯：</strong> 當系統偵測到比賽日期超過 contest.end_date 時，前端將強制移除「立即報名」按鈕，並顯示「報名已截止」字樣，避免無效請求進入後端。</div>
+            
+            <div class="flow-item"><strong>庫存與名額檢查：</strong> 在結帳流程的最後階段，系統會執行最後一次庫存確認；若名額已滿，頁面將轉向「錯誤通知頁（409 Conflict）」，並引導使用者返回列表或聯絡客服。</div>
+            
+            <div class="flow-item"><strong>會員狀態橋接：</strong> 未登入狀態下嘗試報名或結帳時，系統將透過 Redirect 機制導向 /login，並於登入成功後，將使用者回傳至原目標頁面（Return URL），提升操作流暢度。</div>
+        </div>
+    </section>
+
+    <!-- 項目架構 -->
+    <section class="about-section">
+        <h2>🏗️ 項目架構</h2>
+        
+        <h3>📁 目錄結構與模塊說明</h3>
+        <p>本項目採用模組化設計，清晰的分層結構便於維護與擴展：</p>
+
+        <div class="architecture-tree">
+            <div class="tree-item">
+                <div class="tree-label">📦 <strong>app/</strong></div>
+                <div class="tree-children">
+                    <div class="tree-item">
+                        <div class="tree-label">🔧 <strong>core/</strong> - 核心配置與工具</div>
+                        <div class="tree-children tree-descriptions">
+                            <div>📄 config.py - 應用配置（數據庫 URL、祕鑰、業務信息）</div>
+                            <div>📄 database.py - SQLAlchemy 數據庫設置</div>
+                            <div>📄 middleware.py - 中間件配置</div>
+                            <div>📄 security.py - 認證和授權邏輯</div>
+                            <div>📄 dependencies.py - 依賴注入</div>
+                            <div>📄 utils.py - 工具函數</div>
+                        </div>
+                    </div>
+
+                    <div class="tree-item">
+                        <div class="tree-label">💾 <strong>models/</strong> (11 個) - SQLAlchemy ORM 模型</div>
+                        <div class="tree-children tree-descriptions">
+                            <div>👤 user.py - 用戶模型</div>
+                            <div>📚 course.py - 課程模型</div>
+                            <div>🏆 contest.py - 比賽/競賽模型</div>
+                            <div>🎛️ ddj.py - DJ 器材模型</div>
+                            <div>🔊 audio.py - 音頻文件模型</div>
+                            <div>🎵 music.py - 音樂內容模型</div>
+                            <div>🛒 cart.py - 購物車模型</div>
+                            <div>📦 order.py - 訂單模型</div>
+                            <div>💬 contact.py - 聯系表單模型</div>
+                            <div>📋 preorder_set.py - 預購套組模型</div>
+                            <div>⚙️ wire.py - 線路/配置模型</div>
+                        </div>
+                    </div>
+
+                    <div class="tree-item">
+                        <div class="tree-label">🛣️ <strong>routers/</strong> (12 個) - API 路由和視圖</div>
+                        <div class="tree-children tree-descriptions">
+                            <div>🏠 home.py - 首頁</div>
+                            <div>🔐 auth.py - 認證（登錄/註冊）</div>
+                            <div>📂 category.py - 商品分類</div>
+                            <div>📚 course.py - 課程管理</div>
+                            <div>🏆 contest.py - 比賽管理</div>
+                            <div>🛒 cart.py - 購物車</div>
+                            <div>💳 checkout.py - 結帳流程</div>
+                            <div>📬 orders.py - 訂單管理</div>
+                            <div>⚙️ admin.py - 管理面板</div>
+                            <div>🔍 detail.py - 詳情頁面</div>
+                            <div>🔎 search.py - 搜尋功能</div>
+                            <div>📞 contact.py - 聯系我們</div>
+                        </div>
+                    </div>
+
+                    <div class="tree-item">
+                        <div class="tree-label">⚙️ <strong>services/</strong> (7 個) - 業務邏輯層</div>
+                        <div class="tree-children tree-descriptions">
+                            <div>🔐 auth_service.py - 認證服務</div>
+                            <div>🛒 cart_service.py - 購物車服務</div>
+                            <div>📚 course_service.py - 課程服務</div>
+                            <div>🏆 contest_service.py - 比賽服務</div>
+                            <div>📦 order_service.py - 訂單服務</div>
+                            <div>💬 contact_service.py - 聯系服務</div>
+                            <div>🛍️ product_service.py - 商品服務</div>
+                        </div>
+                    </div>
+
+                    <div class="tree-item">
+                        <div class="tree-label">📊 <strong>schemas/</strong> (7 個) - Pydantic 數據模式</div>
+                        <div class="tree-children tree-descriptions">
+                            <div>驗證和序列化用戶輸入與 API 響應</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tree-item">
+                <div class="tree-label">🎨 <strong>templates/</strong> (34 個 HTML) - Jinja2 模板</div>
+                <div class="tree-children tree-descriptions">
+                    <div>前端頁面模板，支持動態內容渲染</div>
+                </div>
+            </div>
+
+            <div class="tree-item">
+                <div class="tree-label">📦 <strong>static/</strong> - 靜態資源</div>
+                <div class="tree-children">
+                    <div class="tree-item">
+                        <div class="tree-label">🎨 <strong>css/</strong> (18 個) - 樣式文件</div>
+                    </div>
+                    <div class="tree-item">
+                        <div class="tree-label">✨ <strong>js/</strong> (10 個) - 前端邏輯</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tree-item">
+                <div class="tree-label">🗄️ <strong>sql/</strong> (15 個) - 數據庫腳本</div>
+                <div class="tree-children tree-descriptions">
+                    <div>數據庫初始化和修復腳本</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>🔄 架構設計原理</h3>
+        <div class="requirement-box">
+            <h4>分層架構</h4>
+            <p><strong>Routes 層</strong> → <strong>Services 層</strong> → <strong>Models 層</strong></p>
+            <ul>
+                <li><strong>Routes：</strong>處理 HTTP 請求，驗證用戶輸入，調用業務邏輯層</li>
+                <li><strong>Services：</strong>包含核心業務邏輯，與數據庫交互，返回結果</li>
+                <li><strong>Models：</strong>定義數據結構，映射數據庫表</li>
+            </ul>
+        </div>
+
+        <div class="requirement-box">
+            <h4>核心設計模式</h4>
+            <ul>
+                <li>✅ <strong>MVC 分離</strong> - Models（數據）、Views（路由），Controllers（Services 業務邏輯）</li>
+                <li>✅ <strong>依賴注入</strong> - 使用 FastAPI 的 Depends 機制注入數據庫連接和用戶信息</li>
+                <li>✅ <strong>Pydantic 驗證</strong> - 在 Schemas 層進行數據驗證，確保數據完整性</li>
+                <li>✅ <strong>RESTful API</strong> - 遵循 REST 原則，使用標準 HTTP 方法和狀態碼</li>
+                <li>✅ <strong>環境配置隔離</strong> - 通過 config.py 管理環境變數，支持本地/生產環境切換</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 程式架構 -->
+    <section class="about-section">
+        <h2>📋 程式架構 - API 路由詳解</h2>
+
+        <div class="callout">
+            <strong>💡 提示：</strong>本平台採用 RESTful 設計模式，支援多種頁面操作。點擊下方分類查看詳細的 API 路由說明。
+        </div>
+
+        <!-- 認證路由 -->
+        <div class="architecture-method">
+            <div class="method-header">🔐 認證路由 (Authentication)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/register</td>
+                            <td>顯示註冊頁面；若已登入則直接導向目標頁</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/register</td>
+                            <td>建立新帳號（帳號、Email、密碼、姓名、電話、地址），成功後自動登入並設定 cookie 導向首頁；失敗則顯示錯誤訊息</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/login</td>
+                            <td>顯示登入頁面；若已登入則直接導向目標頁（?next= 參數）</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/login</td>
+                            <td>驗證帳號密碼，成功後設定 cookie（session_id，7天有效）並導向目標頁；失敗則顯示錯誤訊息</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/logout</td>
+                            <td>清除 session_id cookie，導向首頁</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 商品瀏覽路由 -->
+        <div class="architecture-method">
+            <div class="method-header">🛍️ 商品瀏覽 (Product Browsing)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/category</td>
+                            <td>商品分類頁，可依商品類型、品牌、價格區間與頁數篩選商品</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/detail</td>
+                            <td>商品詳情頁，依 instrument 與 id 顯示指定商品內容與預購方案</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/search</td>
+                            <td>搜尋頁，可依關鍵字、商品類型、品牌、價格區間搜尋商品</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 課程與賽事路由 -->
+        <div class="architecture-method">
+            <div class="method-header">📚 課程與賽事 (Courses & Contests)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/course</td>
+                            <td>列出所有上架課程，每頁 12 筆，可用 ?sort=difficulty 依難度排序，預設依建立時間倒序</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/course/detail?id={id}</td>
+                            <td>顯示單一課程詳細頁（課程介紹、大綱、報名表單），找不到回傳 404</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/course/register</td>
+                            <td>送出課程報名（姓名、Email、電話、備註），成功後導回詳細頁並顯示報名編號；失敗則顯示錯誤訊息</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/contest</td>
+                            <td>列出所有尚未結束的上架比賽（過期活動自動過濾），每頁 12 筆，依活動日期升序排列，並標記每場比賽是否可報名</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/contest/detail?id={id}</td>
+                            <td>顯示單一比賽詳細頁（地點、獎金、截止日、報名表單），並判斷是否已截止/額滿</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/contest/register</td>
+                            <td>送出比賽報名（姓名、Email、電話、DJ 藝名、備註），成功後導回詳細頁並顯示報名編號；失敗則顯示錯誤訊息</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 購物車路由 -->
+        <div class="architecture-method">
+            <div class="method-header">🛒 購物車 (Shopping Cart)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/cart</td>
+                            <td>顯示購物車頁面，列出目前所有商品與小計；未登入則導向登入頁</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/cart/add</td>
+                            <td>將商品加入購物車（支援 JSON 和 Form 兩種格式）；未登入回傳 401 或導向登入頁</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/cart/update/{item_id}</td>
+                            <td>更新購物車內指定商品的數量</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/cart/remove/{item_id}</td>
+                            <td>從購物車移除指定商品</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/cart/clear</td>
+                            <td>清空整個購物車</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/cart/count</td>
+                            <td>回傳購物車商品總件數（JSON，供前端 navbar 顯示數量用）；未登入回傳 0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 結帳路由 -->
+        <div class="architecture-method">
+            <div class="method-header">💳 結帳 (Checkout)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/checkout</td>
+                            <td>顯示結帳頁面，帶入購物車內容；未登入導向登入頁，購物車為空則導回 /cart</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/checkout</td>
+                            <td>送出訂單（填寫姓名、Email、電話、地址、備註），成功後建立訂單並導向 /order-success?order_id=...；失敗則顯示錯誤訊息</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 管理後台路由 -->
+        <div class="architecture-method">
+            <div class="method-header">⚙️ 管理後台 (Admin Panel)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/products</td>
+                            <td>列出指定類型的商品（ddj、audio、wire、music，透過 query param ?instrument= 篩選）</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/admin/products/create</td>
+                            <td>新增一筆商品</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/admin/products/{instrument}/{product_id}/edit</td>
+                            <td>編輯指定商品內容</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/admin/products/{instrument}/{product_id}/delete</td>
+                            <td>刪除指定商品</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/orders</td>
+                            <td>列出所有訂單（依建立時間倒序）</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/orders/{order_id}</td>
+                            <td>查看單筆訂單詳細內容</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/admin/orders/{order_id}/status</td>
+                            <td>更新訂單狀態（例如：待處理 → 已出貨）</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/courses</td>
+                            <td>列出所有課程</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/admin/courses/{course_id}/edit</td>
+                            <td>編輯課程內容（標題、難度、時數、講師、價格等）</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/courses/{course_id}/registrations</td>
+                            <td>查看某課程的報名名單</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/courses/{course_id}/registrations/export</td>
+                            <td>匯出課程報名名單為 CSV 檔</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/contests</td>
+                            <td>列出所有比賽</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/admin/contests/{contest_id}/edit</td>
+                            <td>編輯比賽內容（標題、地點、獎金、日期等）</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/contests/{contest_id}/registrations</td>
+                            <td>查看某比賽的報名名單</td>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>/admin/contests/{contest_id}/registrations/export</td>
+                            <td>匯出比賽報名名單為 CSV 檔</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 聯絡路由 -->
+        <div class="architecture-method">
+            <div class="method-header">📧 聯絡我們 (Contact)</div>
+            <div class="method-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>方法</th>
+                            <th>路由</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GET</td>
+                            <td>/contact</td>
+                            <td>顯示聯絡我們頁面，包含聯絡資訊與表單</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>/contact/submit</td>
+                            <td>送出聯絡表單，儲存使用者意見回饋或廠商合作訊息</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="about-cta">
+        <h3>🚀 準備好開始了嗎？</h3>
+        <p>探索我們的平台，找到您喜愛的 DJ 器材、報名課程或參加比賽。</p>
+        <div class="btn-group">
+            <a href="/category?instrument=ddj" class="btn btn-primary">🛍️ 立即購物</a>
+            <a href="/course" class="btn btn-primary">📚 查看課程</a>
+            <a href="/contest" class="btn btn-primary">🏆 參加比賽</a>
+            <a href="/contact" class="btn btn-secondary">📧 聯絡我們</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

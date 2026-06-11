@@ -1,0 +1,5 @@
+cd /d C:\Users\sam\Desktop\project
+git status
+git add .
+git commit -m "更新紀錄標題"
+git push
