@@ -185,6 +185,10 @@ async def admin_course_edit(
     price: float = Form(...),
     syllabus: str = Form(""),
     description: str = Form(""),
+    start_date: str = Form(...),
+    end_date: str = Form(...),
+    registration_deadline: str = Form(""),
+    max_students: int = Form(30),
     current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
@@ -199,6 +203,10 @@ async def admin_course_edit(
     course.price = price
     course.syllabus = syllabus or None
     course.description = description or None
+    course.start_date = datetime.fromisoformat(start_date)
+    course.end_date = datetime.fromisoformat(end_date)
+    course.registration_deadline = datetime.fromisoformat(registration_deadline) if registration_deadline else None
+    course.max_students = max_students
     db.commit()
     return RedirectResponse(url="/admin/courses", status_code=303)
 

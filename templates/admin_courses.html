@@ -95,6 +95,22 @@
                                             <label>費用</label>
                                             <input type="number" name="price" step="1" value="{{ course.price | int }}" required>
                                         </div>
+                                        <div class="form-field">
+                                            <label>開課日期</label>
+                                            <input type="datetime-local" name="start_date" value="{{ course.start_date.strftime('%Y-%m-%dT%H:%M') if course.start_date else '' }}" required>
+                                        </div>
+                                        <div class="form-field">
+                                            <label>結束日期</label>
+                                            <input type="datetime-local" name="end_date" value="{{ course.end_date.strftime('%Y-%m-%dT%H:%M') if course.end_date else '' }}" required>
+                                        </div>
+                                        <div class="form-field">
+                                            <label>報名截止日期（留空表示不限）</label>
+                                            <input type="datetime-local" name="registration_deadline" value="{{ course.registration_deadline.strftime('%Y-%m-%dT%H:%M') if course.registration_deadline else '' }}">
+                                        </div>
+                                        <div class="form-field">
+                                            <label>名額上限</label>
+                                            <input type="number" name="max_students" min="1" value="{{ course.max_students or 30 }}">
+                                        </div>
                                         <div class="form-field full-width">
                                             <label>課程大綱（以 、 分隔各項目）</label>
                                             <textarea name="syllabus" rows="2">{{ course.syllabus or '' }}</textarea>
