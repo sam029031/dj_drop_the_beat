@@ -1,6 +1,7 @@
 """管理後台路由"""
 import csv
 import io
+import uuid
 from datetime import datetime
 from pathlib import Path
 
@@ -8,6 +9,8 @@ from fastapi import APIRouter, Request, Depends, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+
+UPLOAD_DIR = Path(__file__).resolve().parent.parent.parent / "static" / "uploads"
 
 from app.core.database import get_db
 from app.core.dependencies import require_admin
@@ -24,6 +27,19 @@ router = APIRouter()
 templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent.parent.parent / "templates"))
 
 PRODUCT_MODELS = {"ddj": DDJ, "audio": Audio, "wire": Wire, "music": Music}
+
+async def _save_image(form) -> str | None:
+    """Save uploaded image file; return URL path or None."""
+    image_file = form.get("image_file")
+    if image_file and hasattr(image_file, "filename") and image_file.filename:
+        ext = Path(image_file.filename).suffix.lower()
+        if ext in {".jpg", ".jpeg", ".png", ".gif", ".webp"}:
+            UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+            filename = f"{uuid.uuid4().hex}{ext}"
+            (UPLOAD_DIR / filename).write_bytes(await image_file.read())
+            return f"/static/uploads/{filename}"
+    return None
+
 
 def _product_fields(model, form):
     data = {
@@ -83,7 +99,11 @@ async def admin_products(request: Request, instrument: str = "ddj", current_user
 async def admin_product_create(request: Request, instrument: str = Form("ddj"), current_user: User = Depends(require_admin), db: Session = Depends(get_db)):
     form = await request.form()
     model = PRODUCT_MODELS.get(instrument, DDJ)
-    obj = model(**_product_fields(model, form))
+    fields = _product_fields(model, form)
+    image_url = await _save_image(form)
+    if image_url:
+        fields["image_url"] = image_url
+    obj = model(**fields)
     db.add(obj)
     db.commit()
     return RedirectResponse(url=f"/admin/products?instrument={instrument}", status_code=303)
@@ -97,7 +117,13 @@ async def admin_product_edit(request: Request, instrument: str, product_id: int,
     obj = db.query(model).filter(model.id == product_id).first()
     if not obj:
         raise HTTPException(404)
-    for key, value in _product_fields(model, form).items():
+    fields = _product_fields(model, form)
+    image_url = await _save_image(form)
+    if image_url:
+        fields["image_url"] = image_url
+    else:
+        fields.pop("image_url", None)
+    for key, value in fields.items():
         if hasattr(obj, key):
             setattr(obj, key, value)
     db.commit()

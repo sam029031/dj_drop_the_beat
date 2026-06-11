@@ -567,3 +567,62 @@
     color: var(--color-error);
     border: 1px solid var(--color-error);
 }
+
+/* ============ 商品圖片上傳 ============ */
+.admin-image-upload {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.admin-image-upload label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+.admin-image-or {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+.admin-image-url-input {
+    flex: 1;
+    min-width: 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+}
+
+.admin-image-cell {
+    vertical-align: middle;
+    min-width: 120px;
+}
+
+.admin-product-thumb {
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.admin-image-file-input {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    max-width: 140px;
+}
+
+.no-image {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}

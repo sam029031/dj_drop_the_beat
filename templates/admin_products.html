@@ -38,7 +38,7 @@
 
             <section class="admin-card">
                 <h2>新增商品</h2>
-                <form method="POST" action="/admin/products/create" class="admin-product-form">
+                <form method="POST" action="/admin/products/create" class="admin-product-form" enctype="multipart/form-data">
                     <input type="hidden" name="instrument" value="{{ instrument }}">
                     <div class="form-row">
                         <input type="text" name="name" placeholder="名稱" required>
@@ -47,6 +47,12 @@
                         <input name="stock" type="number" placeholder="庫存" value="0">
                     </div>
                     <textarea name="description" placeholder="描述"></textarea>
+                    <div class="admin-image-upload">
+                        <label>商品圖片</label>
+                        <input type="file" name="image_file" accept="image/*">
+                        <span class="admin-image-or">或</span>
+                        <input type="url" name="image_url" placeholder="貼上圖片網址" class="admin-image-url-input">
+                    </div>
                     <button type="submit" class="btn btn-primary">新增商品</button>
                 </form>
             </section>
@@ -55,18 +61,27 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>ID</th><th>名稱</th><th>品牌/類型</th><th>價格</th><th>庫存</th><th>動作</th>
+                        <th>ID</th><th>名稱</th><th>品牌/類型</th><th>價格</th><th>庫存</th><th>圖片</th><th>動作</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for product in products %}
                     <tr>
-                        <form method="POST" action="/admin/products/{{ instrument }}/{{ product.id }}/edit">
+                        <form method="POST" action="/admin/products/{{ instrument }}/{{ product.id }}/edit" enctype="multipart/form-data">
                             <td>{{ product.id }}</td>
                             <td><input type="text" name="name" value="{{ product.name if product.name is defined else product.title }}"></td>
                             <td><input type="text" name="brand" value="{{ product.brand if product.brand is defined else (product.genre if product.genre is defined else '') }}"></td>
                             <td><input name="price" type="number" step="1" value="{{ product.price }}"></td>
                             <td><input name="stock" type="number" value="{{ product.in_stock if product.in_stock is defined else 0 }}"></td>
+                            <td class="admin-image-cell">
+                                {% if product.image_url %}
+                                <img src="{{ product.image_url }}" alt="圖片" class="admin-product-thumb">
+                                {% else %}
+                                <span class="no-image">無圖片</span>
+                                {% endif %}
+                                <input type="file" name="image_file" accept="image/*" class="admin-image-file-input">
+                                <input type="url" name="image_url" placeholder="或貼上網址" value="{{ product.image_url or '' }}" class="admin-image-url-input">
+                            </td>
                             <td>
                                 <button type="submit" class="btn btn-sm btn-secondary">儲存</button>
                             </td>

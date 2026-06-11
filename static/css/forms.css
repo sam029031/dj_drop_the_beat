@@ -405,10 +405,76 @@ input[type="radio"] {
 .category-layout {
     display: flex;
     flex-direction: column;
+    gap: var(--spacing-lg);
 }
 
 .category-main {
     flex: 1;
+    min-width: 0;
+}
+
+/* Desktop: filter panel becomes a sidebar (~25%) */
+@media (min-width: 992px) {
+    .category-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .filter-panel {
+        width: 260px;
+        flex-shrink: 0;
+        position: sticky;
+        top: var(--spacing-lg);
+        margin-bottom: 0;
+        padding: var(--spacing-md);
+    }
+
+    /* Match mobile: single-column stacked groups */
+    .filter-panel .filter-groups,
+    .filter-panel .filter-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-md);
+        width: 100%;
+    }
+
+    .filter-panel .filter-group {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .filter-panel .filter-group:last-child {
+        grid-column: auto;
+    }
+
+    /* Radio buttons single column */
+    .filter-panel .filter-radios {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .filter-panel .filter-radios label {
+        flex: none;
+    }
+
+    /* Price inputs don't overflow narrow panel */
+    .filter-panel .price-range .filter-input {
+        min-width: 0;
+        width: 0;
+    }
+
+    /* Buttons full width */
+    .filter-panel .filter-buttons,
+    .filter-panel .filter-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .filter-panel .filter-buttons .btn,
+    .filter-panel .filter-actions .btn {
+        flex: 1 1 auto;
+    }
 }
 
 /* ============ 分頁 ============ */
