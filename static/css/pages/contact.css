@@ -91,9 +91,10 @@
 
 .radio-group {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-md);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-sm) var(--spacing-xl);
     text-align: left;
 }
 

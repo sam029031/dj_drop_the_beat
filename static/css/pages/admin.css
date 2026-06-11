@@ -617,7 +617,24 @@
 .admin-image-file-input {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
-    max-width: 140px;
+}
+
+.admin-image-file-input::file-selector-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    background-color: transparent;
+    color: var(--color-light);
+    border: 2px solid var(--color-light);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: background-color var(--transition-base), color var(--transition-base);
+    margin-right: var(--spacing-sm);
+}
+
+.admin-image-file-input::file-selector-button:hover {
+    background-color: var(--color-light);
+    color: var(--color-dark);
 }
 
 .no-image {
