@@ -121,7 +121,7 @@ async def admin_product_edit(request: Request, instrument: str, product_id: int,
     image_url = await _save_image(form)
     if image_url:
         fields["image_url"] = image_url
-    else:
+    elif not fields.get("image_url"):
         fields.pop("image_url", None)
     for key, value in fields.items():
         if hasattr(obj, key):
