@@ -49,8 +49,6 @@
                     <textarea name="description" placeholder="描述"></textarea>
                     <div class="admin-image-upload">
                         <label>商品圖片</label>
-                        <input type="file" name="image_file" accept="image/*" class="admin-image-file-input">
-                        <span class="admin-image-or">或</span>
                         <input type="url" name="image_url" placeholder="貼上圖片網址" class="admin-image-url-input">
                     </div>
                     <button type="submit" class="btn btn-primary">新增商品</button>
@@ -79,8 +77,7 @@
                                 {% else %}
                                 <span class="no-image">無圖片</span>
                                 {% endif %}
-                                <input type="file" name="image_file" accept="image/*" class="admin-image-file-input">
-                                <input type="url" name="image_url" placeholder="或貼上網址" value="{{ product.image_url or '' }}" class="admin-image-url-input">
+                                <input type="url" name="image_url" placeholder="貼上網址" value="{{ product.image_url or '' }}" class="admin-image-url-input">
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-sm btn-secondary">儲存</button>
