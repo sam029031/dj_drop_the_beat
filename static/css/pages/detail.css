@@ -201,3 +201,94 @@
         width: 100%;
     }
 }
+
+/* ============ 快速購買區 ============ */
+.detail-quick-buy {
+    background-color: var(--color-dark-tertiary);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.detail-quick-buy h3 {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.quick-buy-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.buy-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.buy-controls label {
+    color: var(--color-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+.buy-controls input[type="number"] {
+    width: 80px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-dark-secondary);
+    color: var(--color-light);
+    font-size: var(--font-size-md);
+}
+
+.quick-buy-form .btn-large {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+}
+
+.detail-login-prompt {
+    background-color: var(--color-dark-tertiary);
+    border: 2px solid var(--color-warning);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.detail-login-prompt p {
+    color: var(--color-warning);
+    font-size: var(--font-size-md);
+    margin: 0;
+}
+
+.detail-login-prompt a {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+}
+
+.detail-login-prompt a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+    .quick-buy-form {
+        gap: var(--spacing-sm);
+    }
+    
+    .buy-controls {
+        flex-wrap: wrap;
+    }
+    
+    .buy-controls input[type="number"] {
+        flex: 1;
+        min-width: 60px;
+    }
+    
+    .quick-buy-form .btn-large {
+        width: 100%;
+    }
+}

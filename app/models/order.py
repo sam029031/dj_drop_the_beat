@@ -79,10 +79,16 @@ class OrderItem(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     order_id = Column(Integer, ForeignKey("orders.id"), nullable=False, index=True)
-    preorder_set_id = Column(Integer, ForeignKey("preorder_sets.id"), nullable=False)
+    
+    # 產品類型和ID
+    product_type = Column(String(50), default="preorder_set", index=True)
+    product_id = Column(Integer, index=True)
+    
+    # 向後兼容性
+    preorder_set_id = Column(Integer, ForeignKey("preorder_sets.id"), nullable=True)
     
     # 項目信息
-    set_name = Column(String(100), nullable=False)
+    product_name = Column(String(100), nullable=False)
     quantity = Column(Integer, default=1)
     unit_price = Column(Float, nullable=False)
     subtotal = Column(Float, nullable=False)

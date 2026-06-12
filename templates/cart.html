@@ -11,8 +11,8 @@
                 <table class="cart-table">
                     <thead>
                         <tr>
-                            <th>SET 名稱</th>
-                            <th>內容</th>
+                            <th>商品名稱</th>
+                            <th>商品類型</th>
                             <th>數量</th>
                             <th>單價</th>
                             <th>小計</th>
@@ -24,12 +24,18 @@
                         <tr>
                             <td>{{ item.name }}</td>
                             <td>
-                                {% if item.included_items %}
-                                    {% for set_item in item.included_items %}
-                                    <div>• {{ set_item.category|default('器材') }} x {{ set_item.quantity|default(1) }}</div>
-                                    {% endfor %}
+                                {% if item.product_type == 'preorder_set' %}
+                                    預購套組
+                                {% elif item.product_type == 'ddj' %}
+                                    DJ盤
+                                {% elif item.product_type == 'audio' %}
+                                    音響
+                                {% elif item.product_type == 'wire' %}
+                                    線材
+                                {% elif item.product_type == 'music' %}
+                                    音樂
                                 {% else %}
-                                    {{ item.description or '預購套組' }}
+                                    {{ item.product_type }}
                                 {% endif %}
                             </td>
                             <td>

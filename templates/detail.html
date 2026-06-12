@@ -60,6 +60,26 @@
                     <p>{{ product.description }}</p>
                 </div>
                 {% endif %}
+                
+                <!-- 直接購物車按鈕 -->
+                {% if user %}
+                <div class="detail-quick-buy">
+                    <h3>快速購買</h3>
+                    <form method="POST" action="/cart/add" class="quick-buy-form">
+                        <div class="buy-controls">
+                            <label for="qty">數量：</label>
+                            <input type="number" id="qty" name="quantity" value="1" min="1" max="{{ product.stock or 999 }}" />
+                        </div>
+                        <input type="hidden" name="product_id" value="{{ product.id }}" />
+                        <input type="hidden" name="product_type" value="{{ instrument }}" />
+                        <button type="submit" class="btn btn-primary btn-large">加入購物車</button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="detail-login-prompt">
+                    <p>✓ <a href="/login?next=/detail?instrument={{ instrument }}&id={{ product.id }}">請登入</a>以購買此商品</p>
+                </div>
+                {% endif %}
             </div>
         </div>
         

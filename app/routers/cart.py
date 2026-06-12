@@ -41,10 +41,13 @@ async def add_to_cart(
         form = await request.form()
         data = dict(form)
 
-    set_id = data.get("preorder_set_id") or data.get("set_id")
+    # 支持多種產品類型
+    product_id = data.get("preorder_set_id") or data.get("set_id") or data.get("product_id")
+    product_type = data.get("product_type", "preorder_set")
     quantity = int(data.get("quantity") or 1)
+    
     try:
-        CartService.add_to_cart(db, user.id, int(set_id), quantity)
+        CartService.add_to_cart(db, user.id, int(product_id), quantity, product_type)
     except ValueError as exc:
         if request.headers.get("content-type", "").startswith("application/json"):
             raise HTTPException(status_code=400, detail=str(exc))

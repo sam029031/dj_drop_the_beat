@@ -23,10 +23,18 @@ class CartItem(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     cart_id = Column(Integer, ForeignKey("carts.id"), nullable=False, index=True)
-    preorder_set_id = Column(Integer, ForeignKey("preorder_sets.id"), nullable=False)
+    
+    # 產品類型支持：preorder_set, ddj, audio, wire, music
+    product_type = Column(String(50), default="preorder_set", index=True)
+    product_id = Column(Integer, index=True)  # 產品ID（根據product_type查詢不同表）
+    
+    # 向後兼容性：保留preorder_set_id
+    preorder_set_id = Column(Integer, ForeignKey("preorder_sets.id"), nullable=True)
+    
     quantity = Column(Integer, default=1)
     unit_price = Column(Float, nullable=False)
     subtotal = Column(Float, nullable=False)
+    product_name = Column(String(255), nullable=True)  # 產品名稱快取
     added_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
