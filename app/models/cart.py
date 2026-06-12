@@ -34,7 +34,7 @@ class CartItem(Base):
     quantity = Column(Integer, default=1)
     unit_price = Column(Float, nullable=False)
     subtotal = Column(Float, nullable=False)
-    product_name = Column(String(255), nullable=True)  # 產品名稱快取
+    product_name = Column(String(255), nullable=False, default="商品")  # 產品名稱快取
     added_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 

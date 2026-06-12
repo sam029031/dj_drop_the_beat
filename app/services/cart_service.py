@@ -74,13 +74,18 @@ class CartService:
     def add_to_cart(db: Session, user_id: int, product_id: int, quantity: int = 1, 
                    product_type: str = "preorder_set") -> CartItem:
         """添加產品到購物車"""
+        # 規範化 product_type
+        product_type = product_type.lower() if product_type else "preorder_set"
+        if product_type == "dj":
+            product_type = "ddj"
+        
         quantity = max(1, int(quantity or 1))
         cart = CartService.get_or_create_cart(db, user_id)
         
         # 取得產品
         product = CartService._get_product(db, product_type, product_id)
         if not product:
-            raise ValueError(f"{product_type} 產品不存在")
+            raise ValueError(f"產品不存在 (類型: {product_type}, ID: {product_id})")
         
         # 檢查庫存
         if hasattr(product, 'available_quantity') and product.available_quantity is not None:
@@ -111,7 +116,7 @@ class CartService:
                 preorder_set_id=product_id if product_type == "preorder_set" else None,
                 quantity=quantity,
                 unit_price=price,
-                product_name=product_name,
+                product_name=product_name or "商品",
                 subtotal=quantity * price
             )
             db.add(item)
