@@ -91,7 +91,8 @@ class CartService:
         if hasattr(product, 'available_quantity') and product.available_quantity is not None:
             if product.available_quantity < quantity:
                 raise ValueError("庫存不足")
-        elif hasattr(product, 'stock') and product.stock is not None:
+        elif hasattr(product, 'stock') and product.stock:
+            # stock == 0 視為未設定（無限量），只在明確有庫存數量時才檢查
             if product.stock < quantity:
                 raise ValueError("庫存不足")
 

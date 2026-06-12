@@ -5,6 +5,12 @@
     <div class="container">
         <h1 class="section-title">購物車</h1>
 
+        {% if error %}
+        <div class="alert alert-error" style="background:#fee2e2;border:1px solid #f87171;border-radius:6px;padding:12px 16px;margin-bottom:16px;color:#b91c1c;">
+            加入購物車失敗，請確認商品庫存或稍後再試。
+        </div>
+        {% endif %}
+
         {% if items %}
         <div class="cart-content">
             <div class="cart-items">

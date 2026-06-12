@@ -24,7 +24,8 @@ async def cart_page(request: Request, db: Session = Depends(get_db), user=Depend
     if not user:
         return _login_redirect("/cart")
     cart_view = CartService.get_cart_view(db, user.id)
-    return templates.TemplateResponse("cart.html", {"request": request, "user": user, **cart_view})
+    error = request.query_params.get("error")
+    return templates.TemplateResponse("cart.html", {"request": request, "user": user, "error": error, **cart_view})
 
 @router.post("/add")
 async def add_to_cart(
