@@ -59,11 +59,15 @@ def run_startup_migrations():
         "ALTER TABLE course_registrations MODIFY user_id INT NULL",
         "ALTER TABLE contest_registrations MODIFY user_id INT NULL",
         "ALTER TABLE preorder_sets MODIFY set_type VARCHAR(50) NOT NULL",
+        "ALTER TABLE preorder_sets ADD COLUMN sort_order INT NOT NULL DEFAULT 0",
         "ALTER TABLE ddj MODIFY brand VARCHAR(50)",
         "ALTER TABLE audio MODIFY audio_type VARCHAR(50) NOT NULL",
         "ALTER TABLE music MODIFY genre VARCHAR(50) NOT NULL",
         "ALTER TABLE orders MODIFY status VARCHAR(50)",
         "ALTER TABLE orders MODIFY payment_method VARCHAR(50) NULL",
+        "ALTER TABLE cart_items ADD COLUMN product_type VARCHAR(50) NOT NULL DEFAULT 'preorder_set'",
+        "ALTER TABLE cart_items ADD COLUMN product_id INT NULL",
+        "ALTER TABLE cart_items ADD COLUMN product_name VARCHAR(255) NOT NULL DEFAULT '商品'",
     ]
     with engine.begin() as conn:
         for sql in statements:

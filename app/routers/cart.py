@@ -1,5 +1,6 @@
 """購物車路由"""
 from pathlib import Path
+import logging
 from fastapi import APIRouter, Depends, Request, Body, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -8,6 +9,8 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.dependencies import get_optional_current_user
 from app.services.cart_service import CartService
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent.parent.parent / "templates"))
@@ -47,10 +50,17 @@ async def add_to_cart(
     quantity = int(data.get("quantity") or 1)
     
     try:
+        if not product_id:
+            raise ValueError("缺少商品 ID")
         CartService.add_to_cart(db, user.id, int(product_id), quantity, product_type)
-    except ValueError as exc:
+    except (ValueError, TypeError) as exc:
         if request.headers.get("content-type", "").startswith("application/json"):
             raise HTTPException(status_code=400, detail=str(exc))
+        return RedirectResponse(url="/cart?error=1", status_code=303)
+    except Exception as exc:
+        logger.error(f"加入購物車失敗: {exc}", exc_info=True)
+        if request.headers.get("content-type", "").startswith("application/json"):
+            raise HTTPException(status_code=500, detail="加入購物車時發生錯誤，請稍後再試")
         return RedirectResponse(url="/cart?error=1", status_code=303)
 
     if request.headers.get("content-type", "").startswith("application/json"):
